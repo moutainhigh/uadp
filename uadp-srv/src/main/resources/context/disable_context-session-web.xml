@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!--基于redis的储存管理器-->
+    <bean id="redisCacheMgr" class="com.myzh.session.mgr.RedisStorageManager">
+    	<property name="cacheService" ref="redisService"/>
+		<property name="sessionTimeout" value="${seesion.timeout}"/>
+    </bean>
+	<!--session实例提供者，负责session构造-->
+	<bean id="sessionProvider" class="com.myzh.session.session.WebSessionProvider">
+	</bean>
+	<!--cookie管理器-->
+	<bean id="cookieMgr" class="com.myzh.session.cookie.SimpleCookieManager"/>
+	<!--session管理器-->
+	<bean id="sessionMgr" class="com.myzh.session.mgr.WebSessionManager">
+		<property name="cookieManager" ref="cookieMgr"/>
+		<property name="sessionStorageManager" ref="redisCacheMgr"/>
+		<property name="sessionProvider" ref="sessionProvider"/>
+	</bean>
+
+	<!--验证器-->
+	<bean id="webAuthenticator" class="com.myzh.session.authc.WebAuthenticator">
+	</bean>
+
+	<!--服务端跨域验证拦截器，负责客户端的token拦截验证-->
+	<bean id="crossDomain" class="com.myzh.session.plugin.CrossDomainServerInterceptor">
+		<property name="validateServerUrl" value="/**/session/validateToken.do"/>
+	</bean>
+
+	<!--过滤器，单点登录入口-->
+	<bean id="sessionFilter" class="com.myzh.session.filter.SessionFilter">
+		<property name="loginUrl" value="/uadp-srv/login.html"/>
+		<property name="sessionExpireUrl" value="/uadp-srv/upm/sessionExpire/index.html"/>
+		<property name="excludeUrl">
+			<list>
+				<value>/**/vendors.*</value>
+				<value>/**/login/**/*</value>
+				<value>/**/sessionExpire/**/*</value>
+			</list>
+		</property>
+		<property name="interceptors">
+			<list>
+				<ref bean="crossDomain"/>
+			</list>
+		</property>
+		<property name="authenticators">
+			<list>
+				<ref bean="webAuthenticator"/>
+			</list>
+		</property>
+		<property name="sessionManager" ref="sessionMgr"/>
+		<property name="appSecretKey" value=""/>
+	</bean>
+</beans>

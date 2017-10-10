@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="upm.module" >
+  
+  <select id="queryAllModule" resultType="com.myzh.upm.entity.Module">
+  	select * from upm_module order by idx
+  </select>
+  
+  <select id="queryModuleByName" resultType="com.myzh.upm.entity.Module">
+  	select * from upm_module where name like #{name}
+  </select>
+  
+  <select id="getParentModule" resultType="com.myzh.upm.entity.Module">
+  	select * from upm_module where parent_id = #{parentId}
+  </select>
+  
+  <select id="queryBrotherModule" resultType="com.myzh.upm.entity.Module">
+  	SELECT * from upm_module 
+	where parent_id = (SELECT parent_id FROM upm_module where id=#{id})
+	order by idx
+  </select>
+  
+  <select id="queryModule" resultType="com.myzh.upm.entity.Module">
+  	select * from upm_module 
+  	<if test="cascade == false and id == 0">
+  		where parent_id = 0
+  	</if>
+  	<if test="cascade == false and id != 0">
+  		where parent_id = #{id} or id = #{id}
+  	</if>
+  	<if test="cascade == true and id != 0">
+  		where _cascade like concat((select _cascade from upm_module t where t.id = #{id}), '%')
+  	</if>
+  	order by _cascade, idx 
+  </select>
+  
+  <select id="queryMaxChildNode" resultType="com.myzh.upm.entity.Module">
+  	SELECT t.* FROM upm_module t 
+  	where t.parent_id = #{parentId} 
+  		and t.idx = (select max(c.idx) from upm_module c where c.parent_id=#{parentId});
+  </select>
+  
+  <select id="queryNodeCascade" resultType="String">
+  	select _cascade from upm_module where id=#{id}
+  </select>
+  
+  <update id="updateModuleIdx" parameterType="com.myzh.upm.entity.Module">
+  	update upm_module set idx = #{idx}, parent_id = #{parentId}, 
+  		_cascade=#{cascade} 
+  	where id=#{id}
+  </update>
+  
+  <update id="updateModuleCascade" parameterType="com.myzh.upm.entity.Module">
+  	update upm_module set _cascade = #{cascade} where id=#{id}
+  </update>
+  
+  <update id="updateModuleLeaf" parameterType="Integer">
+  	update upm_module set is_leaf = 0 where id = #{id}
+  </update>
+  
+  <insert id="insertModule" parameterType="com.myzh.upm.entity.Module" useGeneratedKeys="true" keyProperty="id">
+  	insert into upm_module(name, url, _cascade, remark, status, parent_id, 
+  		icon, is_single, is_popup, is_autorun, idx)
+  	values(#{name}, #{url}, #{cascade}, #{remark}, #{status}, #{parentId}, 
+  		#{icon}, #{isSingle}, #{isPopup}, #{isAutorun}, #{idx})
+  </insert>
+  
+  <update id="updateModule" parameterType="com.myzh.upm.entity.Module">
+  	update upm_module set name=#{name}, url=#{url}, remark=#{remark}, icon=#{icon}, is_single=#{isSingle},
+  		is_popup=#{isPopup}, is_autorun=#{isAutorun}, status=#{status}
+  	where id=#{id}
+  </update>
+  <delete id="delModule" parameterType="map">
+  	delete from upm_module where left(_cascade, #{length}) = #{cascade};
+  </delete>
+</mapper>

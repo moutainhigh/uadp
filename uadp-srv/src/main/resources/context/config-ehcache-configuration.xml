@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<ehcache name="myzhCache" updateCheck="false" >  
+      
+    <diskStore path="user.home/web_ehcache/" /> 
+	
+	<!-- eternal: Element是否永久有效，一但设置了，timeout将不起作用
+		 timeToLiveSeconds: 缓存自创建日期起至失效时的间隔时间
+		 timeToIdleSeconds: 缓存创建以后，最后一次访问缓存的日期至失效之时的时间间隔
+		 overflowToDisk: 配置此属性，当内存中Element数量达到maxElementsInMemory时,Ehcache将会Element写到磁盘中
+		 maxElementsOnDisk: 磁盘中最大缓存对象数，若是0表示无穷大
+	-->
+	<defaultCache maxElementsInMemory="10000000"
+		eternal="false"                           
+		timeToLiveSeconds="20"
+		timeToIdleSeconds="20"
+		overflowToDisk="true" 
+		maxElementsOnDisk="10000000"
+		diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU" />
+	
+	<!-- session缓存存储 -->	
+	<cache name="sessionCache"  
+		maxElementsInMemory="1000000" 
+		eternal="false"                
+		overflowToDisk="false"  
+		timeToIdleSeconds="3600"         
+		memoryStoreEvictionPolicy="LFU"/>    
+</ehcache>   

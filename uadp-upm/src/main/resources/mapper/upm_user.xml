@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="upm.user" >
+
+	<select id="queryUserListCount" parameterType="map" resultType="int">
+		select count(1)
+		from upm_user u, upm_org o where u.to_org_id = #{orgId} and u.to_org_id = o.id
+		<if test="name != null and name !=''">
+			and (u.name=#{name} or u.login_name=#{name})
+		</if>
+	</select>
+
+  <!-- 根据机构id查询用户列表 -->
+  <select id="queryUserListByOrgId" resultType="com.myzh.upm.entity.User" parameterType="map">
+  	select o.name toOrgName, u.uid, u.name, u.login_name, u.tel, u.mobile, u.fax, u.email,
+  			u.to_org_id, u.id_no, u.status, u.addr, u.pinyin, u.remark, u.type, u.ext_code
+    from upm_user u, upm_org o where u.to_org_id = #{orgId} and u.to_org_id = o.id
+  </select>
+  
+  <!-- 新建用户 -->
+  <insert id="insertUser" parameterType="com.myzh.upm.entity.User">
+  	insert into upm_user(name, login_name, password, tel, mobile, fax, email, 
+  				to_org_id, id_no, status, addr, create_user_id, pinyin, remark, type, ext_code)
+  			values(#{name}, #{loginName}, #{password}, #{tel}, #{mobile}, #{fax}, #{email},
+  				#{toOrgId}, #{idNo}, #{status}, #{addr}, #{createUserId}, #{pinyin}, #{remark}, #{type}, #{extCode})
+  </insert>
+  
+  <!-- 更新用户 -->
+  <update id="updateUser" parameterType="com.myzh.upm.entity.User">
+ 	update upm_user set name=#{name}, tel=#{tel}, mobile=#{mobile}, fax=#{fax}, email=#{email},
+ 				id_no=#{idNo}, status=#{status}, addr=#{addr}, pinyin=#{pinyin}, remark=#{remark}, type=#{type}, ext_code=#{extCode}
+ 	where uid=#{uid}
+  </update>
+  
+  <!-- 删除用户 -->
+  <delete id="deleteUser" parameterType="string">
+  	delete from upm_user where uid=#{uid}
+  </delete>
+  
+  <!-- 重置密码 -->
+  <update id="resetPassword" parameterType="com.myzh.upm.entity.User">
+  	update upm_user set password=#{password}, password_modify_time = now() where uid=#{uid}
+  </update>
+  
+  <select id="checkLoginName" parameterType="string" resultType="int">
+  	select count(*) cnt from upm_user where login_name=#{loginName}
+  </select>
+  
+  <select id="queryUserCfgList" resultType="com.myzh.upm.entity.UserCfg">
+  	select * from upm_user_cfg 
+  	<where>
+  		<foreach collection="array" item="key">
+			or _key = #{key}  			
+  		</foreach>
+  	</where> 
+  </select>
+  
+  <select id="queryUserCfg" resultType="com.myzh.upm.entity.UserCfg">
+  	select _key, _value from upm_user_cfg where _key=#{key}
+  </select>
+  
+  <select id="queryUserByUid" resultType="com.myzh.upm.entity.User">
+  	select * from upm_user where uid=#{uid}
+  </select>
+  
+  <select id="queryUserRoleId" resultType="String">
+  	select CONCAT(role_id,'') from upm_user_role where user_id=#{uid}
+  </select>
+  
+  <select id="queryAllRoleByOrgId" resultType="map">
+  	select CONCAT(id,'') 'key', name title, remark description from upm_role r WHERE (to_org_id = #{orgId} OR is_global = 1)
+	and org_type =(select type from upm_org where id= #{orgId});
+  </select>
+  
+  <delete id="deleteUserRole" parameterType="int">
+  	delete from upm_user_role where user_id=#{uid}
+  </delete>
+  
+  <insert id="insertUserRole" parameterType="map">
+  	insert into upm_user_role(user_id, role_id)
+  	values(#{uid}, #{roleId})
+  </insert>
+</mapper>

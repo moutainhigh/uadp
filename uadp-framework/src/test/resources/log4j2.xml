@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status=debug 可以查看log4j的装配过程， monitorInterval单位是秒 -->
+<configuration status="off" monitorInterval="300">
+	<properties>
+		<property name="LOG_HOME">d:/log</property>
+		<property name="FULL_FILE_NAME">uadp</property>
+		<property name="ERROR_FILE_NAME">uadp-error</property>
+		<property name="SQL_FILE_NAME">uadp-sql</property>
+		<property name="MAX_LOG_FILE_SIZE">500MB</property>
+	</properties>
+	<appenders>
+		<!-- 定义控制台输出 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level [%class:%line] - %m%n" />
+		</Console>
+
+		<!-- 定义文件输出日志，包括debug、info、warn -->
+		<RollingRandomAccessFile name="uadp-full"
+			fileName="${LOG_HOME}/${FULL_FILE_NAME}.log"
+			filePattern="${LOG_HOME}/%d{yyyy-MM}/${FULL_FILE_NAME}-%d{yyyy-MM-dd}-%i.log.zip">
+			<Filters>
+			<ThresholdFilter level="ERROR" onMatch="DENY"
+				onMismatch="ACCEPT" />
+			</Filters>
+			
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level [%class:%line] - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="${MAX_LOG_FILE_SIZE}" />
+			</Policies>
+			<DefaultRolloverStrategy max="30" />
+		</RollingRandomAccessFile>
+
+		<!-- 定义文件输出日志，包括error -->
+		<RollingRandomAccessFile name="uadp-error"
+			fileName="${LOG_HOME}/${ERROR_FILE_NAME}.log"
+			filePattern="${LOG_HOME}/%d{yyyy-MM}/${ERROR_FILE_NAME}-%d{yyyy-MM-dd}-%i.log.zip">
+
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT"
+				onMismatch="DENY" />
+
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level [%class:%line] - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="${MAX_LOG_FILE_SIZE}" />
+			</Policies>
+			<DefaultRolloverStrategy max="30" />
+		</RollingRandomAccessFile>
+
+		<!-- 定义SQL输出日志 -->
+		<RollingRandomAccessFile name="uadp-sql"
+			fileName="${LOG_HOME}/${SQL_FILE_NAME}.log"
+			filePattern="${LOG_HOME}/%d{yyyy-MM}/${SQL_FILE_NAME}-%d{yyyy-MM-dd}-%i.log.zip">
+
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level [%class:%line] - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="${MAX_LOG_FILE_SIZE}" />
+			</Policies>
+			<DefaultRolloverStrategy max="30" />
+		</RollingRandomAccessFile>
+
+		<Async name="async-full" includeLocation="true">
+			<AppenderRef ref="uadp-full" />
+		</Async>
+		<Async name="async-error" includeLocation="true">
+			<AppenderRef ref="uadp-error" />
+		</Async>
+		<Async name="async-sql" includeLocation="true">
+			<AppenderRef ref="uadp-sql"/>
+		</Async>
+	</appenders>
+
+	<loggers>
+		<!-- <logger name="org.springframework.core" level="debug"> </logger> <logger 
+			name="org.springframework.beans" level="debug"> </logger> <logger name="org.springframework.context" 
+			level="debug"> </logger> <logger name="org.springframework.web" level="debug"> 
+			</logger> <logger name="org.jboss.netty" level="warn"> </logger> <logger 
+			name="org.apache.http" level="warn"> </logger> <logger name="com.mchange.v2" 
+			level="warn"> </logger> -->
+
+		<logger
+			name="com.myzh.framework.persistence.mybatis.interceptor.PaginationInterceptor"
+			level="info" additivity="false">
+			<appender-ref ref="Console" />
+			<appender-ref ref="async-sql" />
+		</logger>
+
+		<!-- Root Logger -->
+		<root level="DEBUG">
+			<appender-ref ref="async-full" />
+			<appender-ref ref="async-error" />
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</configuration>  

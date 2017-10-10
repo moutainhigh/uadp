@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="upm.role" >
+  <select id="queryRoleList" resultType="com.myzh.upm.entity.Role">
+  	select r.*, o.name toOrgName from upm_role r, upm_org o
+	where r.to_org_id = o.id
+	and (r.to_org_id = #{orgId} OR (r.is_global = 1 and r.org_type=(select s.type from upm_org s where s.id=#{orgId})))
+  </select>
+  
+  <insert id="insertRole" parameterType="com.myzh.upm.entity.Role">
+  	insert into upm_role(name, remark, _code, to_org_id, is_global, org_type)
+  	values(#{name}, #{remark}, #{code}, #{toOrgId}, #{isGlobal}, #{orgType})
+  </insert>
+  
+  <update id="updateRole" parameterType="com.myzh.upm.entity.Role">
+  	update upm_role set name=#{name}, remark=#{remark}, _code=#{code},
+  		is_global=#{isGlobal}, org_type=#{orgType}
+  	where id=#{id}
+  </update>
+  
+  <delete id="deleteRole" parameterType="int">
+  	delete from upm_role where id=#{roleId}
+  </delete>
+  
+  <delete id="deleteRoleModule" parameterType="int">
+  	delete from upm_role_module where role_id=#{roleId}
+  </delete>
+  
+  <delete id="deleteUserRole" parameterType="int">
+  	delete from upm_user_role where role_id=#{roleId}
+  </delete>
+  
+  <insert id="insertRoleModule" parameterType="map">
+  	insert into upm_role_module(role_id, module_id)
+  	values(#{roleId}, #{moduleId})
+  </insert>
+  
+  <select id="queryRoleModuleList" parameterType="int" resultType="map">
+  	select role_id roleId, module_id moduleId from upm_role_module where role_id=#{roleId}
+  </select>
+</mapper>

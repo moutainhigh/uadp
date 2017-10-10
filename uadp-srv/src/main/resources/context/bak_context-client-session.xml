@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- cookie管理器 -->
+	<bean id="cookieMgr" class="com.myzh.session.cookie.SimpleCookieManager"/>
+	
+	<!-- token校验器，用来校验用户身份信息，ssoCenterUrl需要配置成内网地址 -->
+	<bean id="httpStorageManager" class="com.myzh.session.mgr.HttpStorageManager">
+		<property name="ssoCenterUrl" value="http://www.upbos.com:9069/jkfpdt/upm/login/getToken.do"></property>
+	</bean>
+	
+	<!-- session管理器 -->
+	<bean id="sessionMgr" class="com.myzh.session.mgr.WebSessionManager">
+		<property name="cookieManager" ref="cookieMgr"/>
+		<property name="sessionStorageManager" ref="httpStorageManager"/>	
+	</bean>
+	
+	<!-- 跨域登录，获取token, validateServerUrl需要配置外网地址 -->
+	<bean id="crossDomain" class="com.myzh.session.plugin.CrossDomainClientInterceptor">
+		<property name="validateServerUrl" value="http://www.upbos.com:9069/jkfpdt/session/validateToken.do"/>
+	</bean>
+	
+	<bean id="sessionFilter" class="com.myzh.session.filter.SessionFilter">
+		<property name="loginUrl" value="/jkfpdt/login.html"/>
+		<property name="sessionExpireUrl" value="jkfpdt/upm/sessionExpire/index.html"/>
+		<property name="excludeUrl">
+			<list>
+				<value>/**/login/**/*</value>
+			</list>
+		</property>
+		<property name="interceptors">
+			<list>
+				<ref bean="crossDomain"/>
+			</list>
+		</property>
+		<property name="sessionManager" ref="sessionMgr"/>
+	</bean>
+</beans>

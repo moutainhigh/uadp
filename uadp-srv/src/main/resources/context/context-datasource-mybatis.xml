@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans     
+          http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<description>mybatis相关配置</description>
+	
+	<bean id="paginationInterceptor"
+		class="com.myzh.framework.data.mybatis.interceptor.PaginationInterceptor" />
+
+	<!-- 创建SqlSessionFactory，同时指定数据源 -->
+	<bean id="sqlSessionFactory" class="com.myzh.framework.data.mybatis.session.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+		<property name="configurationProperties">
+			<props>
+				<prop key="dialect">${db.type}</prop>
+			</props>
+		</property>
+		<property name="configLocation"
+			value="classpath:context/config-mybatis-configuration.xml" />
+		<property name="mapperLocations" value="${db.mapper}" />
+	</bean>
+
+	<bean id="sqlTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<bean id="mybatisTplDao"
+		class="com.myzh.framework.data.mybatis.impl.MybatisTplDaoImpl">
+		<property name="sqlSessionTemplate" ref="sqlTemplate" />
+	</bean>
+</beans>

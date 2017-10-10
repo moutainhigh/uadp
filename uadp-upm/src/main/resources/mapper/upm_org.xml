@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="upm.org" >
+  <select id="queryAreaChildren" resultType="map">
+  	select * from dm_area where parent_area_code = #{code}
+  </select>
+  
+  <select id="queryAllOrg" resultType="com.myzh.upm.entity.Org">
+  	select * from upm_org 
+  	where _cascade like concat((select _cascade from upm_org t where t.id = #{id}), '%')
+  	order by idx
+  </select>
+
+  
+  <select id="queryOrgByName" parameterType="map" resultType="com.myzh.upm.entity.Org">
+  	select * from upm_org 
+  	where name like #{name} and
+  		_cascade like concat((select _cascade from upm_org t where t.id = #{currentOrgId}), '%')
+  </select>
+  
+  <select id="queryOrg" resultType="com.myzh.upm.entity.Org">
+  	select * from upm_org 
+  	<if test="cascade == false">
+  		where parent_id = #{id} or id = #{id}
+  	</if>
+  	<if test="cascade == true">
+  		where _cascade like concat((select _cascade from upm_org t where t.id = #{id}), '%')
+  	</if>
+  	order by _cascade, idx 
+  </select>
+  
+  <select id="queryMaxNode" resultType="com.myzh.upm.entity.Org">
+  	SELECT t.* FROM upm_org t 
+  	where t.parent_id = #{parentId} 
+  		and t.idx = (select max(c.idx) from upm_org c where c.parent_id=#{parentId});
+  </select>
+  
+  <select id="queryNodeCascade" resultType="String">
+  	select _cascade from upm_org where id=#{id}
+  </select>
+  
+  <update id="updateOrgCascade" parameterType="com.myzh.upm.entity.Org">
+  	update upm_org set _cascade = #{cascade} where id=#{id}
+  </update>
+  
+  <update id="updateOrgLeaf" parameterType="Integer">
+  	update upm_org set is_leaf = 0 where id = #{id}
+  </update>
+  
+  <insert id="insertOrg" parameterType="com.myzh.upm.entity.Org" useGeneratedKeys="true" keyProperty="id">
+  	insert into upm_org(_code, name, full_name, remark, _cascade, type, parent_id, zip_code, addr, tel, 
+  		tax, email, contacter, create_user_id, idx, status)
+  	values(#{code}, #{name}, #{fullName}, #{remark}, #{cascade}, #{type}, #{parentId}, #{zipCode}, #{addr}, #{tel}, 
+  		#{tax}, #{email}, #{contacter}, #{createUserId}, #{idx}, #{status})
+  </insert>
+  
+  <update id="updateOrg" parameterType="com.myzh.upm.entity.Org">
+  	update upm_org set _code=#{code}, name=#{name}, full_name=#{fullName}, remark=#{remark}, type=#{type},
+  		zip_code=#{zipCode}, addr=#{addr}, tel=#{tel}, tax=#{tax}, email=#{email}, contacter=#{contacter}, status=#{status}
+  	where id=#{id}
+  </update>
+  
+  <delete id="delOrg" parameterType="map">
+  	delete from upm_org where left(_cascade, #{length}) = #{cascade};
+  </delete>
+</mapper>

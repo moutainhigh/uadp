@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" 
+				p:config-location="classpath:context/config-ehcache-configuration.xml"
+				p:shared="true"/>
+    <bean id="cacheMgr" class="org.springframework.cache.ehcache.EhCacheCacheManager" 
+    			p:cache-manager-ref="ehcache"/> -->
+    <bean id="redisCacheMgr" class="com.myzh.session.mgr.RedisStorageManager">
+    	<property name="cacheService" ref="redisService"/>
+    </bean>			
+	<bean id="cookieMgr" class="com.myzh.session.cookie.SimpleCookieManager"/>
+	
+	<!-- <bean id="sessionStorageMgr" class="com.myzh.session.mgr.EhCacheStorageManager">
+		<property name="cacheMgr" ref="cacheMgr"/>
+	</bean> -->
+	
+	<bean id="sessionMgr" class="com.myzh.session.mgr.WebSessionManager">
+		<property name="cookieManager" ref="cookieMgr"/>
+		<property name="sessionStorageManager" ref="redisCacheMgr"/>	
+	</bean>
+	
+	<bean id="crossDomain" class="com.myzh.session.plugin.CrossDomainServerInterceptor">
+		<property name="validateServerUrl" value="/uadp-srv/upm/session/validateToken.do"/>
+	</bean>
+	
+	<bean id="sessionFilter" class="com.myzh.session.filter.SessionFilter">
+		<property name="loginUrl" value="/uadp-srv/login.html"/>
+		<property name="sessionExpireUrl" value="/upm/sessionExpire/index.html"/>
+		<property name="excludeUrl">
+			<list>
+				<value>/**/login/**/*</value>
+			</list>
+		</property>
+		<property name="interceptors">
+			<list>
+				<ref bean="crossDomain"/>
+			</list>
+		</property>
+		<property name="sessionManager" ref="sessionMgr"/>
+	</bean>
+</beans>
