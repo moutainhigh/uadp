@@ -11,7 +11,7 @@
          class = "org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">   
          <constructor-arg name="dataSource" ref="dataSource"/>   
     </bean>
-    <bean id="jdbcTpl" class="com.myzh.framework.data.jdbc.impl.JdbcDaoImpl">
+    <bean id="jdbcTpl" class="com.upbos.framework.data.jdbc.impl.JdbcDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 </beans>

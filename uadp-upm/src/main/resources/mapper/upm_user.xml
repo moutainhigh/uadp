@@ -11,14 +11,14 @@
 	</select>
 
   <!-- 根据机构id查询用户列表 -->
-  <select id="queryUserListByOrgId" resultType="com.myzh.upm.entity.User" parameterType="map">
+  <select id="queryUserListByOrgId" resultType="com.upbos.upm.entity.User" parameterType="map">
   	select o.name toOrgName, u.uid, u.name, u.login_name, u.tel, u.mobile, u.fax, u.email,
   			u.to_org_id, u.id_no, u.status, u.addr, u.pinyin, u.remark, u.type, u.ext_code
     from upm_user u, upm_org o where u.to_org_id = #{orgId} and u.to_org_id = o.id
   </select>
   
   <!-- 新建用户 -->
-  <insert id="insertUser" parameterType="com.myzh.upm.entity.User">
+  <insert id="insertUser" parameterType="com.upbos.upm.entity.User">
   	insert into upm_user(name, login_name, password, tel, mobile, fax, email, 
   				to_org_id, id_no, status, addr, create_user_id, pinyin, remark, type, ext_code)
   			values(#{name}, #{loginName}, #{password}, #{tel}, #{mobile}, #{fax}, #{email},
@@ -26,7 +26,7 @@
   </insert>
   
   <!-- 更新用户 -->
-  <update id="updateUser" parameterType="com.myzh.upm.entity.User">
+  <update id="updateUser" parameterType="com.upbos.upm.entity.User">
  	update upm_user set name=#{name}, tel=#{tel}, mobile=#{mobile}, fax=#{fax}, email=#{email},
  				id_no=#{idNo}, status=#{status}, addr=#{addr}, pinyin=#{pinyin}, remark=#{remark}, type=#{type}, ext_code=#{extCode}
  	where uid=#{uid}
@@ -38,7 +38,7 @@
   </delete>
   
   <!-- 重置密码 -->
-  <update id="resetPassword" parameterType="com.myzh.upm.entity.User">
+  <update id="resetPassword" parameterType="com.upbos.upm.entity.User">
   	update upm_user set password=#{password}, password_modify_time = now() where uid=#{uid}
   </update>
   
@@ -46,7 +46,7 @@
   	select count(*) cnt from upm_user where login_name=#{loginName}
   </select>
   
-  <select id="queryUserCfgList" resultType="com.myzh.upm.entity.UserCfg">
+  <select id="queryUserCfgList" resultType="com.upbos.upm.entity.UserCfg">
   	select * from upm_user_cfg 
   	<where>
   		<foreach collection="array" item="key">
@@ -55,11 +55,11 @@
   	</where> 
   </select>
   
-  <select id="queryUserCfg" resultType="com.myzh.upm.entity.UserCfg">
+  <select id="queryUserCfg" resultType="com.upbos.upm.entity.UserCfg">
   	select _key, _value from upm_user_cfg where _key=#{key}
   </select>
   
-  <select id="queryUserByUid" resultType="com.myzh.upm.entity.User">
+  <select id="queryUserByUid" resultType="com.upbos.upm.entity.User">
   	select * from upm_user where uid=#{uid}
   </select>
   

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="upm.cfg" >
   
-  <select id="queryCfgList" resultType="com.myzh.upm.entity.Cfg">
+  <select id="queryCfgList" resultType="com.upbos.upm.entity.Cfg">
   	select * from upm_cfg 
   	<where>
   		<foreach collection="array" item="key">
@@ -11,7 +11,7 @@
   	</where> 
   </select>
   
-  <select id="queryCfg" resultType="com.myzh.upm.entity.Cfg">
+  <select id="queryCfg" resultType="com.upbos.upm.entity.Cfg">
   	select * from upm_cfg where _key=#{key}
   </select>
 </mapper>

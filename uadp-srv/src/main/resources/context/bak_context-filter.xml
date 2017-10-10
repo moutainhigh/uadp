@@ -11,26 +11,26 @@
 				p:shared="true"/>
     <bean id="cacheMgr" class="org.springframework.cache.ehcache.EhCacheCacheManager" 
     			p:cache-manager-ref="ehcache"/> -->
-    <bean id="redisCacheMgr" class="com.myzh.session.mgr.RedisStorageManager">
+    <bean id="redisCacheMgr" class="com.upbos.session.mgr.RedisStorageManager">
     	<property name="cacheService" ref="redisService"/>
     </bean>			
-	<bean id="cookieMgr" class="com.myzh.session.mgr.SimpleCookieManager"/>
+	<bean id="cookieMgr" class="com.upbos.session.mgr.SimpleCookieManager"/>
 	
-	<!-- <bean id="sessionStorageMgr" class="com.myzh.session.mgr.EhCacheStorageManager">
+	<!-- <bean id="sessionStorageMgr" class="com.upboss.session.mgr.EhCacheStorageManager">
 		<property name="cacheMgr" ref="cacheMgr"/>
 	</bean> -->
 	
-	<bean id="sessionMgr" class="com.myzh.session.mgr.WebSessionManager">
+	<bean id="sessionMgr" class="com.upbos.session.mgr.WebSessionManager">
 		<property name="cookieManager" ref="cookieMgr"/>
 		<property name="sessionStorageManager" ref="redisCacheMgr"/>	
 	</bean>
 	
-	<bean id="crossDomain" class="com.myzh.session.plugin.CrossDomainInterceptor">
+	<bean id="crossDomain" class="com.upbos.session.plugin.CrossDomainInterceptor">
 		<property name="isValidateServer" value="true"/>
 		<property name="validateServerUrl" value="upm/login1/validateToken.do"/>
 	</bean>
 	
-	<bean id="sessionFilter" class="com.myzh.session.filter.SessionFilter">
+	<bean id="sessionFilter" class="com.upbos.session.filter.SessionFilter">
 		<property name="loginUrl" value="/login.html"/>
 		<property name="sessionExpireUrl" value="/upm/sessionExpire/index.html"/>
 		<property name="excludeUrl">

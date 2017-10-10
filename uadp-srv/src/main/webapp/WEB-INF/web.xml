@@ -39,7 +39,7 @@
 	</filter-mapping>
 
 	<listener>
-		<listener-class>com.myzh.framework.context.ConfigLoaderListener</listener-class>
+		<listener-class>com.upbos.framework.context.ConfigLoaderListener</listener-class>
 	</listener>
 
 	<servlet>

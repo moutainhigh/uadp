@@ -3,7 +3,7 @@
 <mapper namespace="upm.sys" >
   
   <!-- 查询注册系统列表 -->
-  <select id="querySys" resultType="com.myzh.upm.entity.Sys">
+  <select id="querySys" resultType="com.upbos.upm.entity.Sys">
   	select * from upm_sys
   	<if test="name != null">
   	where name like #{name}
@@ -11,7 +11,7 @@
   </select>
   
   <!-- 新增系统信息 -->
-  <insert id="addSys" parameterType="com.myzh.upm.entity.Sys">
+  <insert id="addSys" parameterType="com.upbos.upm.entity.Sys">
   	insert into upm_sys(id, name, prefix_url, remark, is_checked_login, 
   		login_url, login_username, login_password)
   	values(#{id}, #{name}, #{prefixUrl}, #{remark}, #{isCheckedLogin}, 
@@ -19,7 +19,7 @@
   </insert>
   
   <!-- 修改系统信息 -->
-  <update id="updateSys" parameterType="com.myzh.upm.entity.Sys">
+  <update id="updateSys" parameterType="com.upbos.upm.entity.Sys">
   	update upm_sys set name=#{name}, prefix_url=#{prefixUrl}, remark=#{remark}, is_checked_login=#{isCheckedLogin},
   		login_url=#{loginUrl}, login_username=#{loginUsername}, login_password=#{loginPassword}
   	where id=#{id}

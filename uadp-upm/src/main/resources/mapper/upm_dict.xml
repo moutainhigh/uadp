@@ -3,12 +3,12 @@
 <mapper namespace="upm.dict" >
   
   <!-- 查询数据字典内容 -->
-  <select id="queryDictByKey" resultType="com.myzh.upm.entity.Dict">
+  <select id="queryDictByKey" resultType="com.upbos.upm.entity.Dict">
   	select * from upm_dict where _key in (#{key})
   </select>
   
   <!-- 查询数据字典内容 -->
-  <select id="queryDictByKeys" resultType="com.myzh.upm.entity.Dict">
+  <select id="queryDictByKeys" resultType="com.upbos.upm.entity.Dict">
   	select * from upm_dict where _key in (#{keys})
   </select>
 </mapper>

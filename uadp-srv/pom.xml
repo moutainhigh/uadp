@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.myzh</groupId>
+		<groupId>com.upbos</groupId>
 		<artifactId>uadp</artifactId>
-		<version>2.7.3-SNAPSHOT</version>
+		<version>3.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>uadp-srv</artifactId>
@@ -12,12 +12,12 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.myzh</groupId>
+			<groupId>com.upbos</groupId>
 			<artifactId>uadp-framework</artifactId>
 			<version>${uadp.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.myzh</groupId>
+			<groupId>com.upbos</groupId>
 			<artifactId>uadp-data</artifactId>
 			<version>${uadp.version}</version>
 		</dependency>
@@ -45,22 +45,22 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.myzh</groupId>
+			<groupId>com.upbos</groupId>
 			<artifactId>uadp-upm</artifactId>
 			<version>${uadp.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.myzh</groupId>
+			<groupId>com.upbos</groupId>
 			<artifactId>uadp-utils</artifactId>
 			<version>${uadp.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.myzh</groupId>
+			<groupId>com.upbos</groupId>
 			<artifactId>uadp-session</artifactId>
 			<version>${uadp.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.myzh</groupId>
+			<groupId>com.upbos</groupId>
 			<artifactId>uadp-lcache</artifactId>
 			<version>${uadp.version}</version>
 		</dependency>
@@ -70,7 +70,7 @@
 			<version>2.5.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.myzh</groupId>
+			<groupId>com.upbos</groupId>
 			<artifactId>uadp-redis</artifactId>
 			<version>${uadp.version}</version>
 		</dependency>

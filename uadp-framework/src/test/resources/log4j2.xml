@@ -84,7 +84,7 @@
 			level="warn"> </logger> -->
 
 		<logger
-			name="com.myzh.framework.persistence.mybatis.interceptor.PaginationInterceptor"
+			name="com.upbos.framework.persistence.mybatis.interceptor.PaginationInterceptor"
 			level="info" additivity="false">
 			<appender-ref ref="Console" />
 			<appender-ref ref="async-sql" />

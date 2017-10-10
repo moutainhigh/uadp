@@ -8,10 +8,10 @@
 	<description>mybatis相关配置</description>
 	
 	<bean id="paginationInterceptor"
-		class="com.myzh.framework.data.mybatis.interceptor.PaginationInterceptor" />
+		class="com.upbos.framework.data.mybatis.interceptor.PaginationInterceptor" />
 
 	<!-- 创建SqlSessionFactory，同时指定数据源 -->
-	<bean id="sqlSessionFactory" class="com.myzh.framework.data.mybatis.session.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory" class="com.upbos.framework.data.mybatis.session.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="plugins">
 			<array>
@@ -33,7 +33,7 @@
 	</bean>
 
 	<bean id="mybatisTplDao"
-		class="com.myzh.framework.data.mybatis.impl.MybatisTplDaoImpl">
+		class="com.upbos.framework.data.mybatis.impl.MybatisTplDaoImpl">
 		<property name="sqlSessionTemplate" ref="sqlTemplate" />
 	</bean>
 </beans>

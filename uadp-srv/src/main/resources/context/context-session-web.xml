@@ -9,7 +9,7 @@
 	http://www.springframework.org/schema/cache/spring-cache.xsd">
 	<cache:annotation-driven cache-manager="cacheMgr" />
 
-	<bean id="sessionProvider" class="com.myzh.session.session.WebSessionProvider">
+	<bean id="sessionProvider" class="com.upbos.session.session.WebSessionProvider">
 	</bean>
 
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" 
@@ -18,34 +18,34 @@
     <bean id="cacheMgr" class="org.springframework.cache.ehcache.EhCacheCacheManager" 
     			p:cache-manager-ref="ehcache"/>
     
-    <bean id="randomCode" class="com.myzh.upm.randomCode.EhcacheRandomCode">
+    <bean id="randomCode" class="com.upbos.upm.randomCode.EhcacheRandomCode">
     	<property name="cacheMgr" ref="cacheMgr"/>
     </bean>
     			
-	<bean id="ehCacheStorageManager" class="com.myzh.session.mgr.EhCacheStorageManager">
+	<bean id="ehCacheStorageManager" class="com.upbos.session.mgr.EhCacheStorageManager">
     	<property name="cacheMgr" ref="cacheMgr"/>
     </bean>
 
-<!--	<bean id="redisCacheMgr" class="com.myzh.session.mgr.RedisStorageManager">
+<!--	<bean id="redisCacheMgr" class="com.upboss.session.mgr.RedisStorageManager">
 		<property name="cacheService" ref="redisService"/>
 	</bean>-->
 
-	<bean id="cookieMgr" class="com.myzh.session.cookie.SimpleCookieManager"/>
+	<bean id="cookieMgr" class="com.upbos.session.cookie.SimpleCookieManager"/>
 	
-	<bean id="sessionMgr" class="com.myzh.session.mgr.WebSessionManager">
+	<bean id="sessionMgr" class="com.upbos.session.mgr.WebSessionManager">
 		<property name="cookieManager" ref="cookieMgr"/>
 		<!--<property name="sessionStorageManager" ref="redisCacheMgr"/>-->
 		<property name="sessionStorageManager" ref="ehCacheStorageManager"/>
 		<property name="sessionProvider" ref="sessionProvider"/>
 	</bean>
 
-	<bean id="webAuthenticator" class="com.myzh.session.authc.WebAuthenticator">
+	<bean id="webAuthenticator" class="com.upbos.session.authc.WebAuthenticator">
 	</bean>
-	<bean id="crossDomain" class="com.myzh.session.plugin.CrossDomainServerInterceptor">
+	<bean id="crossDomain" class="com.upbos.session.plugin.CrossDomainServerInterceptor">
 		<property name="validateServerUrl" value="/**/token/validateToken.do"/>
 	</bean>
 	
-	<bean id="sessionFilter" class="com.myzh.session.filter.SessionFilter">
+	<bean id="sessionFilter" class="com.upbos.session.filter.SessionFilter">
 		<property name="loginUrl" value="/login.html"/>
 		<property name="sessionExpireUrl" value="/upm/sessionExpire/index.html"/>
 		<property name="excludeUrl">

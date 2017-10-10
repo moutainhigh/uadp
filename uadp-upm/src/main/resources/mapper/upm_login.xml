@@ -3,11 +3,11 @@
 <mapper namespace="upm.login" >
   
   <!-- 根据登录名查询用户 -->
-  <select id="queryUserByLoginName" resultType="com.myzh.upm.entity.User">
+  <select id="queryUserByLoginName" resultType="com.upbos.upm.entity.User">
   	select * from upm_user where login_name = #{loginName} and password = #{password}
   </select>
   
-  <select id="queryUserModule" resultType="com.myzh.upm.entity.Module">
+  <select id="queryUserModule" resultType="com.upbos.upm.entity.Module">
   	SELECT m.id, m.name, m.url, m.parent_id, m.icon, m.is_single, m.is_popup, m.is_autorun, m.is_leaf, m.idx
 	FROM upm_module m, (
 			SELECT distinct rm.module_id	FROM upm_user_role ur, upm_role_module rm
@@ -17,16 +17,16 @@
 	WHERE m.is_leaf AND m.id = r.module_id
   </select>
   
-  <select id="queryParentModule" resultType="com.myzh.upm.entity.Module">
+  <select id="queryParentModule" resultType="com.upbos.upm.entity.Module">
   	select m.id, m.name, m.url, m.parent_id, m.icon, m.is_single, m.is_popup, m.is_autorun, m.is_leaf, m.idx
   	 from upm_module m where m.is_leaf = 0 
   </select>
   
-  <select id="queryOrgById" resultType="com.myzh.upm.entity.Org">
+  <select id="queryOrgById" resultType="com.upbos.upm.entity.Org">
   	select * from upm_org o where o.id = #{orgId}
   </select>
   
-  <select id="queryUserRoleList" resultType="com.myzh.upm.entity.Role">
+  <select id="queryUserRoleList" resultType="com.upbos.upm.entity.Role">
   	select r.* from upm_user_role ur, upm_role r 
   	where ur.role_id = r.id and ur.user_id = #{uid}
   </select>

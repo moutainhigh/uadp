@@ -41,5 +41,5 @@
         </property>
     </bean>
     
-    <bean id="redisService" class="com.myzh.cache.redis.RedisCacheUseSpringServiceImpl"/>
+    <bean id="redisService" class="com.upbos.cache.redis.RedisCacheUseSpringServiceImpl"/>
 </beans>
