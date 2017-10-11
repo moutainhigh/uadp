@@ -1,9 +1,0 @@
-com/upbos/cache/ListCacheService.class
-com/upbos/cache/KeyValueCacheService.class
-com/upbos/cache/CacheService.class
-com/upbos/cache/SetCacheService.class
-com/upbos/cache/HashCacheService.class
-com/upbos/cache/redis/RedisCacheUseJedisServiceImpl.class
-com/upbos/cache/memcache/MemcacheServiceImpl.class
-com/upbos/cache/redis/RedisCacheUseSpringServiceImpl.class
-com/upbos/cache/ZSetCacheService.class

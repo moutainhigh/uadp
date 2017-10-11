@@ -8,7 +8,7 @@ import com.upbos.framework.data.page.Pagination;
 /**
  * <p>Title: MybatisTplDao.java</p>
  * <p>Description: 利用mybatis实现数据持久层的访问数据接口</p>
- * <p>Copyright: Copyright (c) 2010-2013</p>
+ * <p>Copyright: Copyright (c) 2010-2017</p>
  * <p>Company: upbos.com</p>
  * @author wangjzd
  * @date 2013年10月13日
@@ -124,19 +124,7 @@ public interface MybatisTplDao {
 	 */
 	public Pagination queryForPagination(int pageNo, int pageSize, String sqlId);
 	
-	/**
-	 * <p>Title: queryForPagination</p>
-	 * <p>Description: 分页查询数据</p>
-	 * @param pageNo 当前页码，从1开始
-	 * @param pageSize 每页条数
-	 * @param sqlId 在mapper文件中定义的SQL Id
-	 * @param isTotal 是否返回总记录数
-	 * @return 查询结果， list中的对象类型可以是引用类型对象或pojo对象
-	 * @author wangjzdd
-	 * @since Mar 24, 2014
-	 */
-	public <T> List<T> queryForPagination(int pageNo, int pageSize, String sqlId, boolean hasTotal);
-	
+
 	/**
 	 * <p>Title: queryForPagination</p>
 	 * <p>Description: 分页查询数据</p>
@@ -149,7 +137,19 @@ public interface MybatisTplDao {
 	 * @since 2013年10月13日
 	 */
 	public Pagination queryForPagination(int pageNo, int pageSize, String sqlId, Object parameter);
-	
+
+	/**
+	 * <p>Title: queryForPagination</p>
+	 * <p>Description: 分页查询数据</p>
+	 * @param pageNo 当前页码，从1开始
+	 * @param pageSize 每页条数
+	 * @param sqlId 在mapper文件中定义的SQL Id
+	 * @return 查询结果， list中的对象类型可以是引用类型对象或pojo对象
+	 * @author wangjzdd
+	 * @since Mar 24, 2014
+	 */
+	public <T> List<T> queryForPaginationWithoutTotal(int pageNo, int pageSize, String sqlId);
+
 	/**
 	 * <p>Title: queryForPagination</p>
 	 * <p>Description: 分页查询数据</p>
@@ -157,12 +157,11 @@ public interface MybatisTplDao {
 	 * @param pageSize 每页条数
 	 * @param sqlId 在mapper文件中定义的SQL Id
 	 * @param parameter 可以是引用类型对象或pojo对象  
-	 * @param isTotal 是否返回总记录数
 	 * @return 查询结果， list中的对象类型可以是引用类型对象或pojo对象
 	 * @author wangjzdd
 	 * @since Mar 24, 2014
 	 */
-	public <T> List<T> queryForPagination(int pageNo, int pageSize, String sqlId, Object parameter, boolean hasTotal);
+	public <T> List<T> queryForPaginationWithoutTotal(int pageNo, int pageSize, String sqlId, Object parameter);
 	
 	/**
 	 * <p>Title: queryForMap</p>

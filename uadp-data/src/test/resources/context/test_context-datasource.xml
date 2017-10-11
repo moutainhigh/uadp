@@ -1,34 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="
-          http://www.springframework.org/schema/beans     
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
           http://www.springframework.org/schema/tx
-          http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-          http://www.springframework.org/schema/context
-          http://www.springframework.org/schema/context/spring-context-4.0.xsd     
-          http://www.springframework.org/schema/aop     
-          http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-          http://www.springframework.org/schema/mvc 
-          http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+          http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-    <bean id="dbPropertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean id="dbPropertyConfigurer"
+		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath:/config/config-mysql.properties</value>
+				<value>config/config-mysql.properties</value>
 			</list>
 		</property>
 		<property name="fileEncoding" value="UTF-8"/>
 	</bean>
-	
+
 	<!-- 数据源配置, 使用 Druid 数据库连接池 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-		init-method="init" destroy-method="close">
+		  init-method="init" destroy-method="close">
 		<!-- 数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->
 		<property name="driverClassName" value="${db.driver}" />
 
@@ -50,12 +42,11 @@
 
 		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
 		<property name="minEvictableIdleTimeMillis" value="${db.minEvictableIdleTimeMillis}" />
-		<property name="testWhileIdle" value="false" /> 
-		<!-- 
-		<property name="validationQuery" value="SELECT 'x'" /> 
-		<property name="testOnBorrow" value="false" /> 
-		<property name="testOnReturn" value="false" /> -->
-		
+		<property name="testWhileIdle" value="true" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+
 		<!-- 打开PSCache，并且指定每个连接上PSCache的大小（Oracle使用） 
 		<property name="poolPreparedStatements" value="true" /> 
 		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" /> -->
@@ -67,7 +58,7 @@
 	<tx:annotation-driven />
 	<!-- 由spring管理事务 -->
 	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 		<qualifier value="uadp" />
 	</bean>

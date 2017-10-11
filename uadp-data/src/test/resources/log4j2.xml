@@ -56,10 +56,10 @@
 	</appenders>
 
 	<loggers>
-		<logger name="org.springframework.core" level="warn"></logger>
-		<logger name="org.springframework.beans" level="warn"></logger>
-		<logger name="org.springframework.context" level="warn"></logger>
-		<logger name="org.springframework.web" level="warn"></logger>
+		<logger name="org.springframework.core" level="debug"></logger>
+		<logger name="org.springframework.beans" level="debug"></logger>
+		<logger name="org.springframework.context" level="debug"></logger>
+		<logger name="org.springframework.web" level="debug"></logger>
 		<logger name="org.jboss.netty" level="warn"></logger>
 		<logger name="org.apache.http" level="warn"></logger>
 		<logger name="com.mchange.v2" level="warn"></logger>

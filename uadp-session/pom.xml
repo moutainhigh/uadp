@@ -43,26 +43,4 @@
 		<scope>provided</scope>
 	</dependency>
   </dependencies>
-  <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <!-- The configuration of the plugin -->
-                <configuration>
-                    <!-- 过滤掉不希望包含在jar中的文件 -->
-                    <excludes>
-                        <exclude>config/**</exclude>
-                        <exclude>context/**</exclude>
-                        <exclude>env/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
-            </plugin>
-        </plugins>
-    </build>
 </project>

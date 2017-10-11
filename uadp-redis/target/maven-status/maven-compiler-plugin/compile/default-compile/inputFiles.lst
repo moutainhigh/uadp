@@ -1,9 +1,0 @@
-/Users/wangjz/03_data/upbos_git/uadp/uadp-redis/src/main/java/com/upbos/cache/KeyValueCacheService.java
-/Users/wangjz/03_data/upbos_git/uadp/uadp-redis/src/main/java/com/upbos/cache/redis/RedisCacheUseSpringServiceImpl.java
-/Users/wangjz/03_data/upbos_git/uadp/uadp-redis/src/main/java/com/upbos/cache/ListCacheService.java
-/Users/wangjz/03_data/upbos_git/uadp/uadp-redis/src/main/java/com/upbos/cache/redis/RedisCacheUseJedisServiceImpl.java
-/Users/wangjz/03_data/upbos_git/uadp/uadp-redis/src/main/java/com/upbos/cache/CacheService.java
-/Users/wangjz/03_data/upbos_git/uadp/uadp-redis/src/main/java/com/upbos/cache/ZSetCacheService.java
-/Users/wangjz/03_data/upbos_git/uadp/uadp-redis/src/main/java/com/upbos/cache/memcache/MemcacheServiceImpl.java
-/Users/wangjz/03_data/upbos_git/uadp/uadp-redis/src/main/java/com/upbos/cache/SetCacheService.java
-/Users/wangjz/03_data/upbos_git/uadp/uadp-redis/src/main/java/com/upbos/cache/HashCacheService.java

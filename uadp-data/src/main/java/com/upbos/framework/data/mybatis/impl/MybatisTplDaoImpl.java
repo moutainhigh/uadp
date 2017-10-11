@@ -88,34 +88,21 @@ public class MybatisTplDaoImpl implements MybatisTplDao {
 		return queryForPagination(pageNo, pageSize, sqlId, null);
 	}
 
-	public <T> List<T> queryForPagination(int pageNo, int pageSize, String sqlId, boolean hasTotal) {
-		Pagination p = queryForPaginationExt(pageNo, pageSize, sqlId, null, hasTotal);
+	public <T> List<T> queryForPaginationWithoutTotal(int pageNo, int pageSize, String sqlId) {
+		Pagination p = queryForPaginationExt(pageNo, pageSize, sqlId, null, false);
 		return p.getRows();
 	}
 
-	private Pagination queryForPaginationExt(int pageNo, int pageSize, String sqlId, Object parameter, boolean hasTotal) {
-
-		if(pageNo > 0) pageNo = pageNo - 1;
-
-		Pagination p = new Pagination();
-		PaginationRowBounds prd = new PaginationRowBounds(pageNo*pageSize, pageSize);
-		prd.setPagination(p);
-		prd.setHasTotal(hasTotal);
-
-		List<Object> rtn = sqlTpl.selectList(sqlId, parameter, prd);
-		p.setRows(rtn);
-
-		return p;
+	public <T> List<T> queryForPaginationWithoutTotal(int pageNo, int pageSize, String sqlId, Object parameter) {
+		Pagination p = queryForPaginationExt(pageNo, pageSize, sqlId, parameter, false);
+		return p.getRows();
 	}
+
 
 	public Pagination queryForPagination(int pageNo, int pageSize, String sqlId, Object parameter) {
 		return queryForPaginationExt(pageNo, pageSize, sqlId, parameter, true);
 	}
 
-	public <T> List<T> queryForPagination(int pageNo, int pageSize, String sqlId, Object parameter, boolean hasTotal) {
-		Pagination p = queryForPaginationExt(pageNo, pageSize, sqlId, parameter, hasTotal);
-		return p.getRows();
-	}
 
 	public <K, V> Map<K, V> queryForMap(String sqlId) {
 		return sqlTpl.selectOne(sqlId);
@@ -133,4 +120,18 @@ public class MybatisTplDaoImpl implements MybatisTplDao {
 		return sqlTpl.selectOne(sqlId, parameter);
 	}
 
+	private Pagination queryForPaginationExt(int pageNo, int pageSize, String sqlId, Object parameter, boolean hasTotal) {
+
+		if(pageNo > 0) pageNo = pageNo - 1;
+
+		Pagination p = new Pagination();
+		PaginationRowBounds prd = new PaginationRowBounds(pageNo*pageSize, pageSize);
+		prd.setPagination(p);
+		prd.setHasTotal(hasTotal);
+
+		List<Object> rtn = sqlTpl.selectList(sqlId, parameter, prd);
+		p.setRows(rtn);
+
+		return p;
+	}
 }

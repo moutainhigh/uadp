@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans default-lazy-init="true" 
-	xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" 
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
+<beans default-lazy-init="true"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="
           http://www.springframework.org/schema/beans     
           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
           http://www.springframework.org/schema/tx
@@ -17,12 +17,12 @@
           http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
           http://www.springframework.org/schema/mvc 
           http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-	
-		<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
 	<context:component-scan base-package="com.upbos"/>
-	
+
 	<bean id="evnPropertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 		<property name="locations">
 			<list>
