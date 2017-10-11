@@ -24,6 +24,7 @@ public class QueueMQ {
 	private String brokerUrl = ActiveMQConnection.DEFAULT_BROKER_URL;
 	private String destination = "test-message-log";
 
+
 	private QueueConnection conn = null;
 
 	public QueueMQ(String brokerUrl, String destination) {
