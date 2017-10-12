@@ -116,11 +116,16 @@ public class SessionContext {
 
 	/**
 	 * 过滤不需要session验证的请求页面，其中包括登录页面和session失效页面
-	 * @param req
+	 * @param contextPath
+	 * @param url
 	 * @return
 	 */
 	public boolean excludeFilterUrl(String contextPath, String url) {
 		boolean isExclude = false;
+
+		if(url.equals("/") || url.equals(contextPath + "/")) {
+			return true;
+		}
 
 		if(getExcludeUrl() == null) return isExclude;
 		//登录页面和会话超时页面例外

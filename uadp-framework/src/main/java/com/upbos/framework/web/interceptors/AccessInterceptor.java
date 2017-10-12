@@ -1,8 +1,6 @@
 package com.upbos.framework.web.interceptors;
 
 import com.alibaba.fastjson.JSON;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -15,7 +13,7 @@ import java.util.Map;
  * 操作日志拦截器
  */
 public class AccessInterceptor extends HandlerInterceptorAdapter {
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+    //Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -34,7 +32,7 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
             actionLog.setResType("url");
             actionLog.setResData(modelAndView.getViewName());
         }
-        logger.debug("执行完成");
+        //logger.debug("执行完成");
     }
 
     //可以根据ex是否为null判断是否发生了异常，进行日志记录。
@@ -57,7 +55,7 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
         Map parameterMap = request.getParameterMap();
         actionLog.setReqParam(JSON.toJSONString(parameterMap));
 
-        logger.debug("请求开始：" + actionLog.toString());
+        //logger.debug("请求开始：" + actionLog.toString());
     }
 
     /**
@@ -72,7 +70,7 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
         actionLog.setResStatus(ex == null?String.valueOf(response.getStatus()):"500");
         actionLog.setException(ex == null?"": ex.getStackTrace().toString());
         AccessLog.cleanActionLog();
-        logger.debug("请求结束：" + actionLog.toString());
+        //logger.debug("请求结束：" + actionLog.toString());
     }
 
     /**

@@ -6,8 +6,6 @@ package com.upbos.framework.web.exception;
 
 import com.upbos.framework.web.ret.RetCode;
 import com.upbos.framework.web.ret.RetData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -29,20 +27,20 @@ import java.util.Locale;
  */
 public class GlobalExceptionHandler {
 
-    private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    //private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @Autowired
     MessageSource messageSource;
 
 //    @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleControllerException(Exception exception) {
-        logger.error("全局异常：", exception);
+        //logger.error("全局异常：", exception);
         if (exception instanceof BindingResult) {
             return onBindError((BindingResult) exception);
         } else if (exception instanceof ServletRequestBindingException) {
             return onRequestBindError(exception);
         } else {
-            logger.error("Error occurs:", exception);
+            //logger.error("Error occurs:", exception);
         }
         exception.printStackTrace();
         RetData resData = new RetData();
@@ -74,7 +72,7 @@ public class GlobalExceptionHandler {
             for(FieldError error : errorList) {
                 String code = error.getDefaultMessage();
                 message += messageSource.getMessage(code, error.getArguments(), Locale.CHINA) + ";";
-                logger.error("binding parameter error, code={}, message={}", code, message);
+                //logger.error("binding parameter error, code={}, message={}", code, message);
             }
         }
         RetData resData = new RetData();
