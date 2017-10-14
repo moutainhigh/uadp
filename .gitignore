@@ -28,3 +28,12 @@ hs_err_pid*
 /.settings/
 /.classpath
 /.project
+uadp-utils/target
+uadp-upm/target
+uadp-srv/target
+uadp-redis/target
+uadp-lcache/target
+uadp-framework/target
+uadp-data/target
+uadp-activemq/target
+uadp-session/target
