@@ -22,7 +22,9 @@
 hs_err_pid*
 .idea
 
-uadp-data/target
-uadp-redis/target
-uadp-activemq/target
 *.iml
+
+/target/
+/.settings/
+/.classpath
+/.project
