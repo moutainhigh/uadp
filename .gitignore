@@ -25,3 +25,4 @@ hs_err_pid*
 uadp-data/target
 uadp-redis/target
 uadp-activemq/target
+*.iml

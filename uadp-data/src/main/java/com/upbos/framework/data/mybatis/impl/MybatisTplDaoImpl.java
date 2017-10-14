@@ -121,10 +121,10 @@ public class MybatisTplDaoImpl implements MybatisTplDao {
 	}
 
 	private Pagination queryForPaginationExt(int pageNo, int pageSize, String sqlId, Object parameter, boolean hasTotal) {
-
-		if(pageNo > 0) pageNo = pageNo - 1;
-
 		Pagination p = new Pagination();
+		p.setPageNo(pageNo);
+		p.setPageSize(pageSize);
+		if(pageNo > 0) pageNo = pageNo - 1;
 		PaginationRowBounds prd = new PaginationRowBounds(pageNo*pageSize, pageSize);
 		prd.setPagination(p);
 		prd.setHasTotal(hasTotal);
