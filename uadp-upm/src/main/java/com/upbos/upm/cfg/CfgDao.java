@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.upbos.framework.data.page.Pagination;
 import org.springframework.stereotype.Repository;
 
 import com.upbos.upm.entity.Cfg;
@@ -15,15 +16,18 @@ public class CfgDao {
 	@Resource(name="mybatisTplDao")
 	private MybatisTplDao dao;
 	
-	public List<Cfg> queryCfgList() {
-		return dao.queryForList("upm.cfg.queryCfgList");
+	public Pagination listCfg(Integer pageNo, Integer pageSize, String value) {
+		if(value != null && !"".equals(value)) {
+			value = "%" + value + "%";
+		}
+		return dao.queryForPagination(pageNo, pageSize,"upm.cfg.listCfg", value);
 	}
 	
-	public List<Cfg> queryCfgList(String ...keys) {
-		return dao.queryForList("upm.cfg.queryCfgList", keys);
+	public List<Cfg> listCfg(String ...keys) {
+		return dao.queryForList("upm.cfg.listCfg", keys);
 	}
 	
-	public Cfg queryCfg(String key) {
-		return dao.queryForOne("upm.cfg.queryCfg", key);
+	public Cfg getCfg(String key) {
+		return dao.queryForOne("upm.cfg.listCfg", key);
 	}
 }

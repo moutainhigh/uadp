@@ -1,5 +1,6 @@
 package com.upbos.upm.entity;
 
+
 public class Cfg {
 	
 	private String name;

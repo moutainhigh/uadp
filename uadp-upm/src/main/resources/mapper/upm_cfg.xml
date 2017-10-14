@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="upm.cfg" >
-  
-  <select id="queryCfgList" resultType="com.upbos.upm.entity.Cfg">
-  	select * from upm_cfg 
-  	<where>
-  		<foreach collection="array" item="key">
-			or _key = #{key}  			
-  		</foreach>
-  	</where> 
-  </select>
-  
-  <select id="queryCfg" resultType="com.upbos.upm.entity.Cfg">
-  	select * from upm_cfg where _key=#{key}
-  </select>
+<mapper namespace="upm.cfg">
+
+    <select id="listCfg" resultType="com.upbos.upm.entity.Cfg">
+        SELECT * FROM upm_cfg
+        <if test="value != null">
+            WHERE name LIKE #{value} OR _key LIKE #{value}
+        </if>
+    </select>
+
+    <select id="queryCfgList" resultType="com.upbos.upm.entity.Cfg">
+        select * from upm_cfg
+        <where>
+            <foreach collection="array" item="key">
+                or _key = #{key}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="queryCfg" resultType="com.upbos.upm.entity.Cfg">
+        SELECT *
+        FROM upm_cfg
+        WHERE _key = #{key}
+    </select>
 </mapper>
