@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import com.upbos.session.SessionManager;
 import com.upbos.session.util.AntPathMatcher;
 import com.upbos.util.HttpUtils;
+import org.apache.tools.ant.taskdefs.condition.Http;
 
 import java.net.URLEncoder;
 
@@ -71,8 +72,12 @@ public class CrossDomainServerInterceptor implements Interceptor {
 			Session token = session.getSession(req);
 			//session不存在，重新定向session失效页面
 			if(token == null ) {
-				session.getSessionContext().redirectSessionExpireUrl(req, res);
-				log.info("session过期，重定向url:{}", session.getSessionContext().sessionExpireUrl);
+				if(HttpUtils.isAjax(req)) {
+					session.getSessionContext().redirectSessionExpireAjax(req, res);
+				}else {
+					session.getSessionContext().redirectSessionExpireUrl(req, res);
+					log.info("session过期，重定向url:{}", session.getSessionContext().sessionExpireUrl);
+				}
 				return false;
 			}
 			log.debug("登录验证成功");

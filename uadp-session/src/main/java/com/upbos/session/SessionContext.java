@@ -143,4 +143,10 @@ public class SessionContext {
 		}
 		return isExclude;
 	}
+
+	public void redirectSessionExpireAjax(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("application/json; charset=utf-8");
+		res.getWriter().write("{\"success\": false, \"code\": \"sessionExpire\"}");
+	}
 }

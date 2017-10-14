@@ -53,8 +53,12 @@ public class CrossDomainClientInterceptor implements Interceptor {
 				cxt.getCookieManager().setCookie(req, res, token);
 				redirect302Url(req, res);
 			}else {
-				log.debug("token验证失败，重定向session过期url:{}", cxt.getSessionContext().getSessionExpireUrl());
-				cxt.getSessionContext().redirectSessionExpireUrl(req, res);
+				if(HttpUtils.isAjax(req)) {
+					cxt.getSessionContext().redirectSessionExpireAjax(req, res);
+				}else {
+					log.debug("token验证失败，重定向session过期url:{}", cxt.getSessionContext().getSessionExpireUrl());
+					cxt.getSessionContext().redirectSessionExpireUrl(req, res);
+				}
 			}
 			return false;
 		}
