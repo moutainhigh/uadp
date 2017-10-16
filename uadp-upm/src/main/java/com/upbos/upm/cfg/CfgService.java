@@ -1,6 +1,8 @@
 package com.upbos.upm.cfg;
 
 import com.upbos.framework.data.page.Pagination;
+import com.upbos.framework.web.ret.RetCode;
+import com.upbos.framework.web.ret.RetData;
 import com.upbos.upm.entity.Cfg;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,35 @@ public class CfgService {
     private CfgDao dao;
 
     public Pagination listCfg(Integer pageNo, Integer pageSize, String value) {
-        return dao.listCfg(pageNo, pageSize, value);
+        Pagination p = dao.listCfg(pageNo, pageSize, value);
+        return p;
+    }
+
+    public RetData addCfg(Cfg cfg) {
+        RetData retData = new RetData(RetCode.SUCCESS);
+        if(dao.isCfgUnique(cfg.getKey())) {
+            dao.addCfg(cfg);
+        }else {
+            retData.setCode("0");
+            retData.setSuccess(false);
+            retData.setMsg("参数键已存在！");
+        }
+        return retData;
+    }
+
+    public RetData updateCfg(Cfg cfg) {
+        RetData retData = new RetData(RetCode.SUCCESS);
+        if(dao.isCfgUnique(cfg.getKey())) {
+            dao.updateCfg(cfg);
+        }else {
+            retData.setCode("0");
+            retData.setSuccess(false);
+            retData.setMsg("参数键已存在！");
+        }
+        return retData;
+    }
+
+    public void deleteCfg(String key) {
+        dao.deleteCfg(key);
     }
 }

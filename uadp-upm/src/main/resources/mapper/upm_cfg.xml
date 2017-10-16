@@ -2,12 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="upm.cfg">
 
+    <!-- 查询系统参数列表 -->
     <select id="listCfg" resultType="com.upbos.upm.entity.Cfg">
         SELECT * FROM upm_cfg
-        <if test="value != null">
+        <if test="value!=''">
             WHERE name LIKE #{value} OR _key LIKE #{value}
         </if>
     </select>
+
+    <!-- 插入系统参数 -->
+    <insert id="insertCfg" parameterType="com.upbos.upm.entity.Cfg">
+        INSERT INTO upm_cfg(name, _key, _value, options, remark)
+                VALUES (#{name}, #{key}, #{value}, #{options}, #{remark})
+    </insert>
+
+    <!-- 更新系统参数 -->
+    <update id="updateCfg" parameterType="com.upbos.upm.entity.Cfg">
+        UPDATE upm_cfg
+        SET name = #{name}, _key = #{key}, _value = #{value},
+            options = #{options}, remark = #{remark}
+        WHERE _key = #{key}
+    </update>
+
+    <!-- 删除系统参数 -->
+    <delete id="deleteCfg" parameterType="string">
+        DELETE FROM upm_cfg
+        WHERE _key = #{key}
+    </delete>
+
+    <!-- 判断参数键是否存在 -->
+    <select id="isCfgUnique" parameterType="string" resultType="int">
+        SELECT count(*) cnt FROM upm_cfg
+        WHERE _key = #{key}
+    </select>
+
 
     <select id="queryCfgList" resultType="com.upbos.upm.entity.Cfg">
         select * from upm_cfg
