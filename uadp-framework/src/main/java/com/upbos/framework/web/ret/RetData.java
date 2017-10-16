@@ -57,6 +57,7 @@ public class RetData implements Serializable {
             ((Map<String, Object>)data).clear();
         }
     }
+
     public void setRetCode(RetCode retCode) {
         this.code = retCode.getCode();
         this.msg = retCode.getMsg();

@@ -17,7 +17,8 @@ import java.io.Serializable;
  */
 public class RetCode implements Serializable {
     // 公共
-    public static RetCode SUCCESS = new RetCode("success", "0", "成功");
+    public static RetCode SUCCESS = new RetCode("success", "1", "成功");
+    public static RetCode FAIL = new RetCode("fail", "0", "失败");
     public static RetCode Unknown_Exception = new RetCode("unknown.exception", "500", "未知服务器异常");
     public static RetCode Common_Parameter_Required = new RetCode("common.parameter.required","10001", "参数错误");
     public static RetCode Common_Token_Required = new RetCode("common.session.required","10002", "token不能为空");
