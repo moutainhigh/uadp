@@ -22,9 +22,9 @@ public class CfgService {
 
     public RetData addCfg(Cfg cfg) {
         RetData retData = new RetData(RetCode.SUCCESS);
-        if(dao.isCfgUnique(cfg.getKey())) {
+        if (dao.isCfgUnique(cfg.getKey())) {
             dao.addCfg(cfg);
-        }else {
+        } else {
             retData.setCode("0");
             retData.setSuccess(false);
             retData.setMsg("参数键已存在！");
@@ -32,16 +32,8 @@ public class CfgService {
         return retData;
     }
 
-    public RetData updateCfg(Cfg cfg) {
-        RetData retData = new RetData(RetCode.SUCCESS);
-        if(dao.isCfgUnique(cfg.getKey())) {
-            dao.updateCfg(cfg);
-        }else {
-            retData.setCode("0");
-            retData.setSuccess(false);
-            retData.setMsg("参数键已存在！");
-        }
-        return retData;
+    public void updateCfg(Cfg cfg) {
+        dao.updateCfg(cfg);
     }
 
     public void deleteCfg(String key) {

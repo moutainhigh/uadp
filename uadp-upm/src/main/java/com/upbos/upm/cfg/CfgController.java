@@ -27,14 +27,15 @@ public class CfgController {
 
     /**
      * 查询系统参数，支持模糊查询
-     * @param pageNo 当前页
+     *
+     * @param pageNo   当前页
      * @param pageSize 每页条数
-     * @param value 查询关键词，可以是参数名称或参数键
+     * @param value    查询关键词，可以是参数名称或参数键
      * @return {"pageNo":1,"pageSize":10,
-     *              "rows":[{"fixed":false,"key":"app_title","name":"应用系统标题","options":"应用集成平台","value":"应用集成开发平台"},
-     *                      {"fixed":false,"key":"is_top_menu","name":"顶层菜单置顶","options":"true,false","remark":"顶层菜单是否置顶","value":"true"},
-     *                      {"fixed":true,"key":"layout","name":"系统布局","options":"tab,window,mdi","value":"tab"}],
-     *              "total":3}
+     * "rows":[{"fixed":false,"key":"app_title","name":"应用系统标题","options":"应用集成平台","value":"应用集成开发平台"},
+     * {"fixed":false,"key":"is_top_menu","name":"顶层菜单置顶","options":"true,false","remark":"顶层菜单是否置顶","value":"true"},
+     * {"fixed":true,"key":"layout","name":"系统布局","options":"tab,window,mdi","value":"tab"}],
+     * "total":3}
      */
     @RequestMapping("listCfg")
     public Pagination listCfg(
@@ -47,6 +48,7 @@ public class CfgController {
 
     /**
      * 新增系统参数，如果存在相同的参数键，则不能增加
+     *
      * @param cfg 参数内容
      * @return
      */
@@ -57,16 +59,18 @@ public class CfgController {
 
     /**
      * 修改系统参数，如果存在相同的参数键，则不能增加
+     *
      * @param cfg
      * @return
      */
     @RequestMapping("updateCfg")
-    public RetData updateCfg(Cfg cfg) {
-        return srv.updateCfg(cfg);
+    public void updateCfg(Cfg cfg) {
+        srv.updateCfg(cfg);
     }
 
     /**
      * 删除系统参数
+     *
      * @param key
      */
     @RequestMapping("deleteCfg")
