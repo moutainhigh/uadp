@@ -7,6 +7,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSON;
+import com.upbos.framework.web.ret.RetCode;
+import com.upbos.framework.web.ret.RetData;
 import com.upbos.session.plugin.Interceptor;
 import com.upbos.session.util.AntPathMatcher;
 import com.upbos.util.HttpUtils;
@@ -97,7 +100,6 @@ public class SessionContext {
 	 */
 	public void redirectSessionExpireUrl(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		if(HttpUtils.isAjax(req)) {
-			res.getWriter().print("session失效，请重新登陆。");
 			return ;
 		}
 		
@@ -147,6 +149,7 @@ public class SessionContext {
 	public void redirectSessionExpireAjax(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("application/json; charset=utf-8");
-		res.getWriter().write("{\"success\": false, \"code\": \"sessionExpire\"}");
+		RetData retData = new RetData(RetCode.Common_Session_Expire);
+		res.getWriter().write(JSON.toJSONString(retData));
 	}
 }

@@ -6,6 +6,8 @@ package com.upbos.framework.web.exception;
 
 import com.upbos.framework.web.ret.RetCode;
 import com.upbos.framework.web.ret.RetData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Locale;
@@ -25,22 +30,24 @@ import java.util.Locale;
  * <b>Date：</b> 2016年07月29日 16:21 <br>
  * <b>author：</b> <a href="mailto:chensg@miyzh.com"> chensg </a> <b>version：</b>V2.0
  */
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
-    //private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private Logger logger = LoggerFactory.getLogger(com.upbos.framework.web.exception.GlobalExceptionHandler.class);
 
     @Autowired
     MessageSource messageSource;
 
-//    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleControllerException(Exception exception) {
-        //logger.error("全局异常：", exception);
+        logger.error("全局异常：", exception);
         if (exception instanceof BindingResult) {
             return onBindError((BindingResult) exception);
         } else if (exception instanceof ServletRequestBindingException) {
             return onRequestBindError(exception);
         } else {
-            //logger.error("Error occurs:", exception);
+            logger.error("Error occurs:", exception);
         }
         exception.printStackTrace();
         RetData resData = new RetData();
@@ -72,7 +79,7 @@ public class GlobalExceptionHandler {
             for(FieldError error : errorList) {
                 String code = error.getDefaultMessage();
                 message += messageSource.getMessage(code, error.getArguments(), Locale.CHINA) + ";";
-                //logger.error("binding parameter error, code={}, message={}", code, message);
+                logger.error("binding parameter error, code={}, message={}", code, message);
             }
         }
         RetData resData = new RetData();

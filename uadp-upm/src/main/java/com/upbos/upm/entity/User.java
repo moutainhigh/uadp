@@ -154,7 +154,31 @@ public class User implements Serializable {
 		this.remark = remark;
 	}
 
-
+	@Override
+	public String toString() {
+		return "User{" +
+				"uid='" + uid + '\'' +
+				", name='" + name + '\'' +
+				", loginName='" + loginName + '\'' +
+				", password='" + password + '\'' +
+				", tel='" + tel + '\'' +
+				", mobile='" + mobile + '\'' +
+				", fax='" + fax + '\'' +
+				", email='" + email + '\'' +
+				", toOrgId=" + toOrgId +
+				", toOrgName='" + toOrgName + '\'' +
+				", idNo='" + idNo + '\'' +
+				", addr='" + addr + '\'' +
+				", createDate=" + createDate +
+				", createUserId='" + createUserId + '\'' +
+				", type='" + type + '\'' +
+				", typeName='" + typeName + '\'' +
+				", status='" + status + '\'' +
+				", pinyin='" + pinyin + '\'' +
+				", extCode='" + extCode + '\'' +
+				", remark='" + remark + '\'' +
+				'}';
+	}
 
 	public static final String STATUS_NORMAL = "1";
 	public static final String STATUS_LOGOFF = "2";

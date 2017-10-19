@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.upbos.upm.entity.DictMapping;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +55,7 @@ public class UserController {
 	public List<User> queryUserListByOrgId(Integer orgId) {
 		List<User> userList = srv.queryUserListByOrgId(orgId);
 		try {
-			DictUtil.tranlate(userList, "user_type:type->typeName");
+			DictUtil.tranlate(userList, new DictMapping("user_type", "type", "typeName"));
 		} catch (Exception e) {
 			log.error("用户管理->翻译用户类型字典时发生异常", e);
 		}
@@ -96,7 +97,7 @@ public class UserController {
 	/**
 	 * @Method: removeUser
 	 * @Description: 删除用户
-	 * @param uid 用户ID
+	 * @param uids 用户ID
 	 */
 	@RequestMapping("deleteUser")
 	public void deleteUser(String uids) {

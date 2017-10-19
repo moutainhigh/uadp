@@ -49,11 +49,13 @@ public class CfgDao {
         }
     }
 
-    public List<Cfg> listCfg(String... keys) {
-        return dao.queryForList("upm.cfg.listCfg", keys);
+    public List<Cfg> listCfgByKey(String... keys) {
+        return dao.queryForList("upm.cfg.listCfgByKey", keys);
     }
 
     public Cfg getCfg(String key) {
-        return dao.queryForOne("upm.cfg.listCfg", key);
+        List<Cfg> list = this.listCfgByKey(key);
+        if(list == null) return null;
+        return list.get(0);
     }
 }

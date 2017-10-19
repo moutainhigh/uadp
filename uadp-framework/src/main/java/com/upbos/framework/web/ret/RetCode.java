@@ -20,6 +20,7 @@ public class RetCode implements Serializable {
     public static RetCode SUCCESS = new RetCode("success", "1", "成功");
     public static RetCode FAIL = new RetCode("fail", "0", "失败");
     public static RetCode Unknown_Exception = new RetCode("unknown.exception", "500", "未知服务器异常");
+    public static RetCode Common_Session_Expire = new RetCode("common.session.expire", "10000", "用户会话失效或过期，请重新登录");
     public static RetCode Common_Parameter_Required = new RetCode("common.parameter.required","10001", "参数错误");
     public static RetCode Common_Token_Required = new RetCode("common.session.required","10002", "token不能为空");
     public static RetCode Common_Token_Authority_Error = new RetCode("common.session.error","10003", "token错误或已过期");

@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Date 2014-5-8
  */
 public class CookieUtils {
-	private static final Logger logger = Logger.getLogger("CookieHelper");
+	private static final Logger logger = Logger.getLogger("CookieUtils");
 	
 	/* 浏览器关闭时自动删除 */
 	public final static int CLEAR_BROWSER_IS_CLOSED = -1;
@@ -88,8 +88,6 @@ public class CookieUtils {
 	 * 
 	 * @param request
 	 * @param response
-	 * @param cookieName
-	 *            cookie name
 	 * @param domain
 	 *            Cookie所在的域
 	 * @param path

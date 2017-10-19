@@ -23,7 +23,7 @@ import com.upbos.upm.entity.Role;
 import com.upbos.upm.entity.User;
 import com.upbos.upm.entity.UserCfg;
 import com.upbos.upm.randomCode.RandomCodeInterface;
-import com.upbos.upm.user.UserCfgUtils;
+import com.upbos.upm.user.UserCfgUtil;
 import com.upbos.util.CookieUtils;
 
 @RestController
@@ -64,7 +64,7 @@ public class LoginController {
 	public Map<String, Object> login(HttpServletRequest req, HttpServletResponse res, User u, String randomCode) {
 		Map<String, Object> r = new HashMap<String, Object>();
 		if(enableRandomCode) {
-			Cookie c = CookieUtils.findCookieByName(req, "randomCodeKey");
+			Cookie c = CookieUtils.findCookieByName(req, "rCode");
 			if(c != null && !c.getValue().equals("")) {
 				String key = randomCodeInterface.getRandomCode(c.getValue());
 				if(!key.equals(randomCode)) {
@@ -105,8 +105,8 @@ public class LoginController {
 		
 		if((boolean)r.get("success")) {
 			// 保存当前登录信息
-			Org org = srv.queryOrgById(user.getToOrgId());
 			List<Role> roles = srv.queryUserRoleList(user.getUid());
+			Org org = srv.queryOrgById(user.getToOrgId());
 			Map<String, Object> attrs = new HashMap<String, Object>();
 			attrs.put("org", org);
 			attrs.put("roles", roles);
@@ -153,14 +153,16 @@ public class LoginController {
 		//系统名称
 		String appTitle = "应用集成开发平台";
 		
-		List<UserCfg> lst = UserCfgUtils.getUserCfg(sessionUser.getUid(), new String[]{"is_top_menu", "app_title"});
-		for(UserCfg cfg : lst) {
-			if(cfg.getKey().equals("is_top_menu")) {
-				isTopMenu = cfg.getValue();
-			}
-			
-			if(cfg.getKey().equals("app_title")) {
-				appTitle = cfg.getValue();
+		List<UserCfg> lst = UserCfgUtil.listUserCfg(sessionUser.getUid(), new String[]{"is_top_menu", "app_title"});
+		if(lst != null) {
+			for (UserCfg cfg : lst) {
+				if (cfg.getKey().equals("is_top_menu")) {
+					isTopMenu = cfg.getValue();
+				}
+
+				if (cfg.getKey().equals("app_title")) {
+					appTitle = cfg.getValue();
+				}
 			}
 		}
 		result.put("isTopMenu", isTopMenu);

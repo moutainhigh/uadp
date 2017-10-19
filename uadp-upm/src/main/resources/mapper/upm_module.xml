@@ -29,9 +29,9 @@
   		where parent_id = #{id} or id = #{id}
   	</if>
   	<if test="cascade == true and id != 0">
-  		where _cascade like concat((select _cascade from upm_module t where t.id = #{id}), '%')
+  		where cascade_ like concat((select cascade_ from upm_module t where t.id = #{id}), '%')
   	</if>
-  	order by _cascade, idx 
+  	order by cascade_, idx
   </select>
   
   <select id="queryMaxChildNode" resultType="com.upbos.upm.entity.Module">
@@ -41,17 +41,17 @@
   </select>
   
   <select id="queryNodeCascade" resultType="String">
-  	select _cascade from upm_module where id=#{id}
+  	select cascade_ from upm_module where id=#{id}
   </select>
   
   <update id="updateModuleIdx" parameterType="com.upbos.upm.entity.Module">
   	update upm_module set idx = #{idx}, parent_id = #{parentId}, 
-  		_cascade=#{cascade} 
+  		cascade_=#{cascade}
   	where id=#{id}
   </update>
   
   <update id="updateModuleCascade" parameterType="com.upbos.upm.entity.Module">
-  	update upm_module set _cascade = #{cascade} where id=#{id}
+  	update upm_module set cascade_ = #{cascade} where id=#{id}
   </update>
   
   <update id="updateModuleLeaf" parameterType="Integer">
@@ -59,7 +59,7 @@
   </update>
   
   <insert id="insertModule" parameterType="com.upbos.upm.entity.Module" useGeneratedKeys="true" keyProperty="id">
-  	insert into upm_module(name, url, _cascade, remark, status, parent_id, 
+  	insert into upm_module(name, url, cascade_, remark, status, parent_id,
   		icon, is_single, is_popup, is_autorun, idx)
   	values(#{name}, #{url}, #{cascade}, #{remark}, #{status}, #{parentId}, 
   		#{icon}, #{isSingle}, #{isPopup}, #{isAutorun}, #{idx})
@@ -71,6 +71,6 @@
   	where id=#{id}
   </update>
   <delete id="delModule" parameterType="map">
-  	delete from upm_module where left(_cascade, #{length}) = #{cascade};
+  	delete from upm_module where left(cascade_, #{length}) = #{cascade};
   </delete>
 </mapper>

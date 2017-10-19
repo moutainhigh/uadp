@@ -6,49 +6,43 @@
     <select id="listCfg" resultType="com.upbos.upm.entity.Cfg">
         SELECT * FROM upm_cfg
         <if test="value!=''">
-            WHERE name LIKE #{value} OR _key LIKE #{value}
+            WHERE name LIKE #{value} OR key_ LIKE #{value}
         </if>
+    </select>
+
+    <!-- 根据参数键查询系统参数列表 -->
+    <select id="listCfgByKey" resultType="com.upbos.upm.entity.Cfg">
+        select * from upm_cfg
+        <where>
+            <foreach collection="array" item="key">
+                or key_ = #{key}
+            </foreach>
+        </where>
     </select>
 
     <!-- 插入系统参数 -->
     <insert id="insertCfg" parameterType="com.upbos.upm.entity.Cfg">
-        INSERT INTO upm_cfg(name, _key, _value, options, remark)
+        INSERT INTO upm_cfg(name, key_, value_, options, remark)
                 VALUES (#{name}, #{key}, #{value}, #{options}, #{remark})
     </insert>
 
     <!-- 更新系统参数 -->
     <update id="updateCfg" parameterType="com.upbos.upm.entity.Cfg">
         UPDATE upm_cfg
-        SET name = #{name}, _key = #{key}, _value = #{value},
+        SET name = #{name}, key_ = #{key}, value_ = #{value},
             options = #{options}, remark = #{remark}
-        WHERE _key = #{key}
+        WHERE key_ = #{key}
     </update>
 
     <!-- 删除系统参数 -->
     <delete id="deleteCfg" parameterType="string">
         DELETE FROM upm_cfg
-        WHERE _key = #{key}
+        WHERE key_ = #{key}
     </delete>
 
     <!-- 判断参数键是否存在 -->
     <select id="isCfgUnique" parameterType="string" resultType="int">
         SELECT count(*) cnt FROM upm_cfg
-        WHERE _key = #{key}
-    </select>
-
-
-    <select id="queryCfgList" resultType="com.upbos.upm.entity.Cfg">
-        select * from upm_cfg
-        <where>
-            <foreach collection="array" item="key">
-                or _key = #{key}
-            </foreach>
-        </where>
-    </select>
-
-    <select id="queryCfg" resultType="com.upbos.upm.entity.Cfg">
-        SELECT *
-        FROM upm_cfg
-        WHERE _key = #{key}
+        WHERE key_ = #{key}
     </select>
 </mapper>

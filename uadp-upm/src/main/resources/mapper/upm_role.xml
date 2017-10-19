@@ -8,12 +8,12 @@
   </select>
   
   <insert id="insertRole" parameterType="com.upbos.upm.entity.Role">
-  	insert into upm_role(name, remark, _code, to_org_id, is_global, org_type)
+  	insert into upm_role(name, remark, code_, to_org_id, is_global, org_type)
   	values(#{name}, #{remark}, #{code}, #{toOrgId}, #{isGlobal}, #{orgType})
   </insert>
   
   <update id="updateRole" parameterType="com.upbos.upm.entity.Role">
-  	update upm_role set name=#{name}, remark=#{remark}, _code=#{code},
+  	update upm_role set name=#{name}, remark=#{remark}, code_=#{code},
   		is_global=#{isGlobal}, org_type=#{orgType}
   	where id=#{id}
   </update>

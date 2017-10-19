@@ -5,6 +5,7 @@
 		<property name="LOG_HOME">${sys:catalina.home}/logs</property>
 		<property name="FULL_FILE_NAME">uadp</property>
 		<property name="ERROR_FILE_NAME">uadp-error</property>
+		<property name="SQL_FILE_NAME">uadp-sql</property>
 		<Property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss} %-5level [%class:%line] - %m%n</Property>
 		<property name="MAX_LOG_FILE_SIZE">500MB</property>
 	</properties>
@@ -46,23 +47,48 @@
 			<DefaultRolloverStrategy max="30" />
 		</RollingRandomAccessFile>
 
+		<!-- 定义文件输出日志，包括error -->
+		<RollingRandomAccessFile name="uadp-sql"
+								 fileName="${LOG_HOME}/${SQL_FILE_NAME}.log"
+								 filePattern="${LOG_HOME}/%d{yyyy-MM}/${SQL_FILE_NAME}-%d{yyyyMMdd}-%i.log.zip">
+
+			<ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
+
+			<PatternLayout pattern="${PATTERN}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="${MAX_LOG_FILE_SIZE}" />
+			</Policies>
+			<DefaultRolloverStrategy max="30" />
+		</RollingRandomAccessFile>
+
 		<Async name="async-full" includeLocation="true">
 			<AppenderRef ref="uadp-full" />
 		</Async>
 		<Async name="async-error" includeLocation="true">
 			<AppenderRef ref="uadp-error" />
 		</Async>
-
+		<Async name="async-sql" includeLocation="true">
+			<AppenderRef ref="uadp-sql" />
+		</Async>
 	</appenders>
 
 	<loggers>
-		<logger name="org.springframework.core" level="warn"></logger>
-		<logger name="org.springframework.beans" level="warn"></logger>
-		<logger name="org.springframework.context" level="warn"></logger>
-		<logger name="org.springframework.web" level="warn"></logger>
-		<logger name="org.jboss.netty" level="warn"></logger>
-		<logger name="org.apache.http" level="warn"></logger>
-		<logger name="com.mchange.v2" level="warn"></logger>
+		<logger name="org.springframework.core" level="error"></logger>
+		<logger name="org.springframework.beans" level="error"></logger>
+		<logger name="org.springframework.context" level="error"></logger>
+		<logger name="org.springframework.web" level="error"></logger>
+		<logger name="org.jboss.netty" level="error"></logger>
+		<logger name="org.apache.http" level="error"></logger>
+		<logger name="com.mchange.v2" level="error"></logger>
+
+		<!-- druid配置 -->
+		<logger name="druid.sql.Statement" level="debug" additivity="false">
+			<appender-ref ref="async-sql"/>
+		</logger>
+		<logger name="druid.sql.ResultSet" level="debug" additivity="false">
+			<appender-ref ref="async-sql"/>
+		</logger>
 
 		<!-- Root Logger -->
 		<root level="DEBUG">

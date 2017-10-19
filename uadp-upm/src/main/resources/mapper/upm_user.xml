@@ -46,17 +46,18 @@
   	select count(*) cnt from upm_user where login_name=#{loginName}
   </select>
   
-  <select id="queryUserCfgList" resultType="com.upbos.upm.entity.UserCfg">
+  <select id="listUserCfg" parameterType="map" resultType="com.upbos.upm.entity.UserCfg">
   	select * from upm_user_cfg 
   	<where>
-  		<foreach collection="array" item="key">
-			or _key = #{key}  			
+		user_id = #{uid} AND key_ in
+  		<foreach collection="keys" item="key" open="(" separator="," close=")">
+			#{key}
   		</foreach>
-  	</where> 
+  	</where>
   </select>
   
-  <select id="queryUserCfg" resultType="com.upbos.upm.entity.UserCfg">
-  	select _key, _value from upm_user_cfg where _key=#{key}
+  <select id="getUserCfg" parameterType="map" resultType="com.upbos.upm.entity.UserCfg">
+  	select key_, value_ from upm_user_cfg where user_id = #{uid} AND key_=#{key}
   </select>
   
   <select id="queryUserByUid" resultType="com.upbos.upm.entity.User">

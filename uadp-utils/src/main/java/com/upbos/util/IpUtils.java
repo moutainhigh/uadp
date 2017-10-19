@@ -31,11 +31,28 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class IpUtils {
 
-	private static final Logger logger = Logger.getLogger("IpHelper");
+	private static final Logger logger = Logger.getLogger("IpUtils");
 
 	private static String LOCAL_IP_STAR_STR = "192.168.";
 
-	static {
+	/** 系统的本地IP地址 */
+	private static String LOCAL_IP = null;
+
+	/** 系统的本地服务器名 */
+	private static String HOST_NAME = null;
+
+	public static String getLocalIp() {
+		return LOCAL_IP;
+	}
+
+	public static String getHostName() {
+		return HOST_NAME;
+	}
+
+	private static void instance() {
+		if(HOST_NAME != null) {
+			return;
+		}
 		String ip = null;
 		String hostName = null;
 		try {
@@ -58,14 +75,7 @@ public class IpUtils {
 
 		LOCAL_IP = ip;
 		HOST_NAME = hostName;
-
 	}
-
-	/** 系统的本地IP地址 */
-	public static final String LOCAL_IP;
-
-	/** 系统的本地服务器名 */
-	public static final String HOST_NAME;
 
 	/**
 	 * <p>
@@ -90,16 +100,6 @@ public class IpUtils {
 		}
 		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
-			if (ip.equals("127.0.0.1")) {
-				/** 根据网卡取本机配置的IP */
-				InetAddress inet = null;
-				try {
-					inet = InetAddress.getLocalHost();
-					ip = inet.getHostAddress();
-				} catch (UnknownHostException e) {
-					logger.severe("IpHelper error." + e.toString());
-				}
-			}
 		}
 		/**
 		 * 对于通过多个代理的情况， 第一个IP为客户端真实IP,多个IP按照','分割 "***.***.***.***".length() =

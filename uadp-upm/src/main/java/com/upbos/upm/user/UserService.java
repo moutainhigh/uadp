@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.upbos.upm.cfg.CfgUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,9 +80,13 @@ public class UserService {
 		}
 	}
 	
-	public List<UserCfg> queryUserCfg(String ...keys) {
-		List<UserCfg> userCfgs = dao.queryForList("upm.user.queryUserCfgList", keys);
-		List<Cfg> cfgs = dao.queryForList("upm.cfg.queryCfgList", keys);
+	public List<UserCfg> listUserCfg(String uid, String ...keys) {
+		Map<String, Object> p = new HashMap<String, Object>();
+		p.put("uid", uid);
+		p.put("keys", keys);
+		List<UserCfg> userCfgs = dao.queryForList("upm.user.listUserCfg", p);
+		List<Cfg> cfgs = CfgUtil.listCfg(keys);
+		if(cfgs == null) return null;
 		for(Cfg cfg : cfgs) {
 			boolean has = false;
 			for(UserCfg userCfg : userCfgs) {
@@ -101,9 +106,12 @@ public class UserService {
 		return userCfgs;
 	}
 	
-	public UserCfg queryUserCfg(String key) {
-		UserCfg userCfg = dao.queryForOne("upm.user.queryUserCfg", key);
-		Cfg cfg = dao.queryForOne("upm.cfg.queryCfg", key);
+	public UserCfg getUserCfg(String uid, String key) {
+		Map<String, Object> p = new HashMap<String, Object>();
+		p.put("uid", uid);
+		p.put("key", key);
+		UserCfg userCfg = dao.queryForOne("upm.user.getUserCfg", p);
+		Cfg cfg = CfgUtil.getCfg(key);
 		if(userCfg == null && cfg != null) {
 			userCfg = new UserCfg();
 			userCfg.setKey(cfg.getKey());

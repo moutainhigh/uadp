@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.upbos.upm.entity.DictMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +34,7 @@ public class OrgController {
 	@RequestMapping("queryOrg")
 	public List<Org> queryOrg(Integer id, Boolean cascade) throws Exception {
 		List<Org> list = srv.queryOrg(id, cascade);
-		DictUtil.tranlate(list, "org_type:type->typeName");
+		DictUtil.tranlate(list, new DictMapping("org_type", "type", "typeName"));
 		return list;
 	}
 	
@@ -42,7 +43,7 @@ public class OrgController {
 		SessionUser user = sessionMgr.getSession().getUser();
 		Integer currentOrgId = user.getToOrgId();
 		List<Org> list = srv.queryOrgByName(name, currentOrgId); 
-		DictUtil.tranlate(list, "org_type:type->typeName");
+		DictUtil.tranlate(list, new DictMapping("org_type", "type", "typeName"));
 		
 		return list;
 	}
