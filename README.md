@@ -20,4 +20,5 @@
 
 ## 演示地址
 http://www.upbos.com:9696/login.html
-demo/demodemo
+
+演示账户/密码：demo/demodemo
