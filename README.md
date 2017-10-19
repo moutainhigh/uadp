@@ -17,3 +17,7 @@
 ## [版本更新](https://github.com/www3com/uadp/wiki/%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0)
 
 ## [uadp-session单点登录集成](https://github.com/www3com/uadp/wiki/uadp-session%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E9%9B%86%E6%88%90)
+
+## 演示地址
+http://www.upbos.com:9696/login.html
+demo/demodemo
