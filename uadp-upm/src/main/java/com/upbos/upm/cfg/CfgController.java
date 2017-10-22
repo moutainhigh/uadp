@@ -15,8 +15,9 @@ import javax.annotation.Resource;
  * <b>Copyright：</b> Copyright &copy; 2017 upbos.com 版权所有。<br>
  * <b>Company：</b> upbos.com <br>
  * <b>Date：</b> 2017年10月13日 17:09 <br>
- * <b>author：</b> <a href="mailto:wjzchina2008@126.com"> wangjz </a>
+ * <b>@author：</b> <a href="mailto:wjzchina2008@126.com"> wangjz </a>
  * <b>version：</b>V3.0.0
+ * @author wangjz
  */
 @RestController
 @RequestMapping("upm/cfg")

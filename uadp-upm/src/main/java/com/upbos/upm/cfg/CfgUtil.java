@@ -5,6 +5,9 @@ import java.util.List;
 import com.upbos.framework.context.SpringContext;
 import com.upbos.upm.entity.Cfg;
 
+/**
+ * @author wangjz
+ */
 public class CfgUtil {
 	
 	public static List<Cfg> listCfg(String ...keys) {

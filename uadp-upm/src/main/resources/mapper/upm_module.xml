@@ -1,76 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="upm.module" >
-  
-  <select id="queryAllModule" resultType="com.upbos.upm.entity.Module">
-  	select * from upm_module order by idx
-  </select>
-  
-  <select id="queryModuleByName" resultType="com.upbos.upm.entity.Module">
-  	select * from upm_module where name like #{name}
-  </select>
-  
-  <select id="getParentModule" resultType="com.upbos.upm.entity.Module">
-  	select * from upm_module where parent_id = #{parentId}
-  </select>
-  
-  <select id="queryBrotherModule" resultType="com.upbos.upm.entity.Module">
-  	SELECT * from upm_module 
-	where parent_id = (SELECT parent_id FROM upm_module where id=#{id})
-	order by idx
-  </select>
-  
-  <select id="queryModule" resultType="com.upbos.upm.entity.Module">
-  	select * from upm_module 
-  	<if test="cascade == false and id == 0">
-  		where parent_id = 0
-  	</if>
-  	<if test="cascade == false and id != 0">
-  		where parent_id = #{id} or id = #{id}
-  	</if>
-  	<if test="cascade == true and id != 0">
-  		where cascade_ like concat((select cascade_ from upm_module t where t.id = #{id}), '%')
-  	</if>
-  	order by cascade_, idx
-  </select>
-  
-  <select id="queryMaxChildNode" resultType="com.upbos.upm.entity.Module">
-  	SELECT t.* FROM upm_module t 
-  	where t.parent_id = #{parentId} 
-  		and t.idx = (select max(c.idx) from upm_module c where c.parent_id=#{parentId});
-  </select>
-  
-  <select id="queryNodeCascade" resultType="String">
-  	select cascade_ from upm_module where id=#{id}
-  </select>
-  
-  <update id="updateModuleIdx" parameterType="com.upbos.upm.entity.Module">
-  	update upm_module set idx = #{idx}, parent_id = #{parentId}, 
-  		cascade_=#{cascade}
-  	where id=#{id}
-  </update>
-  
-  <update id="updateModuleCascade" parameterType="com.upbos.upm.entity.Module">
-  	update upm_module set cascade_ = #{cascade} where id=#{id}
-  </update>
-  
-  <update id="updateModuleLeaf" parameterType="Integer">
-  	update upm_module set is_leaf = 0 where id = #{id}
-  </update>
-  
-  <insert id="insertModule" parameterType="com.upbos.upm.entity.Module" useGeneratedKeys="true" keyProperty="id">
-  	insert into upm_module(name, url, cascade_, remark, status, parent_id,
-  		icon, is_single, is_popup, is_autorun, idx)
-  	values(#{name}, #{url}, #{cascade}, #{remark}, #{status}, #{parentId}, 
-  		#{icon}, #{isSingle}, #{isPopup}, #{isAutorun}, #{idx})
-  </insert>
-  
-  <update id="updateModule" parameterType="com.upbos.upm.entity.Module">
-  	update upm_module set name=#{name}, url=#{url}, remark=#{remark}, icon=#{icon}, is_single=#{isSingle},
-  		is_popup=#{isPopup}, is_autorun=#{isAutorun}, status=#{status}
-  	where id=#{id}
-  </update>
-  <delete id="delModule" parameterType="map">
-  	delete from upm_module where left(cascade_, #{length}) = #{cascade};
-  </delete>
+<mapper namespace="upm.module">
+
+    <select id="listAllModule" resultType="com.upbos.upm.entity.Module">
+        SELECT *
+        FROM upm_module
+        ORDER BY idx
+    </select>
+
+    <select id="listModuleByName" resultType="com.upbos.upm.entity.Module">
+        SELECT *
+        FROM upm_module
+        WHERE name LIKE #{name}
+    </select>
+
+    <select id="getParentModule" resultType="map">
+        SELECT parent_id parentId, count(*) childrenCount
+        FROM upm_module
+        WHERE parent_id = (SELECT parent_id
+                           FROM upm_module
+                           WHERE id = #{id})
+        GROUP BY parent_id
+    </select>
+
+    <select id="listBrotherModule" resultType="com.upbos.upm.entity.Module">
+        SELECT *
+        FROM upm_module
+        WHERE parent_id = (SELECT parent_id
+                           FROM upm_module
+                           WHERE id = #{id})
+        ORDER BY idx
+    </select>
+
+    <select id="listModule" parameterType="map" resultType="com.upbos.upm.entity.Module">
+        select * from upm_module
+        <if test="id == 0">
+            where parent_id = 0
+        </if>
+        <if test="id != 0">
+            where parent_id = #{id} or id = #{id}
+        </if>
+        order by cascade_, idx
+    </select>
+
+    <select id="getMaxChildNode" resultType="com.upbos.upm.entity.Module">
+        SELECT t.*
+        FROM upm_module t
+        WHERE t.parent_id = #{parentId}
+              AND t.idx = (SELECT max(c.idx)
+                           FROM upm_module c
+                           WHERE c.parent_id = #{parentId});
+    </select>
+
+    <select id="getNodeCascade" resultType="String">
+        SELECT cascade_
+        FROM upm_module
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateModuleIdx" parameterType="com.upbos.upm.entity.Module">
+        UPDATE upm_module
+        SET idx      = #{idx}, parent_id = #{parentId},
+            cascade_ = #{cascade}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateModuleCascade" parameterType="com.upbos.upm.entity.Module">
+        UPDATE upm_module
+        SET cascade_ = #{cascade}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateModuleLeaf" parameterType="map">
+        UPDATE upm_module
+        SET is_leaf = #{isLeaf}
+        WHERE id = #{id}
+    </update>
+
+    <insert id="addModule" parameterType="com.upbos.upm.entity.Module" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO upm_module (name, url, cascade_, remark, status, parent_id,
+                                icon, is_single, is_popup, is_autorun, idx)
+        VALUES (#{name}, #{url}, #{cascade}, #{remark}, #{status}, #{parentId},
+                         #{icon}, #{isSingle}, #{isPopup}, #{isAutorun}, #{idx})
+    </insert>
+
+    <update id="updateModule" parameterType="com.upbos.upm.entity.Module">
+        UPDATE upm_module
+        SET name     = #{name}, url = #{url}, remark = #{remark}, icon = #{icon}, is_single = #{isSingle},
+            is_popup = #{isPopup}, is_autorun = #{isAutorun}, status = #{status}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteModule" parameterType="map">
+        DELETE FROM upm_module
+        WHERE left(cascade_, #{length}) = #{cascade};
+    </delete>
 </mapper>

@@ -1,37 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="upm.login" >
-  
-  <!-- 根据登录名查询用户 -->
-  <select id="queryUserByLoginName" resultType="com.upbos.upm.entity.User">
-  	select * from upm_user where login_name = #{loginName} and password = #{password}
-  </select>
-  
-  <select id="queryUserModule" resultType="com.upbos.upm.entity.Module">
-  	SELECT m.id, m.name, m.url, m.parent_id, m.icon, m.is_single, m.is_popup, m.is_autorun, m.is_leaf, m.idx
-	FROM upm_module m, (
-			SELECT distinct rm.module_id	FROM upm_user_role ur, upm_role_module rm
-			WHERE	ur.user_id = #{uid}
-			AND ur.role_id = rm.role_id
-		) r
-	WHERE m.is_leaf AND m.id = r.module_id
-  </select>
-  
-  <select id="queryParentModule" resultType="com.upbos.upm.entity.Module">
-  	select m.id, m.name, m.url, m.parent_id, m.icon, m.is_single, m.is_popup, m.is_autorun, m.is_leaf, m.idx
-  	 from upm_module m where m.is_leaf = 0 
-  </select>
-  
-  <select id="queryOrgById" resultType="com.upbos.upm.entity.Org">
-  	select * from upm_org o where o.id = #{orgId}
-  </select>
-  
-  <select id="queryUserRoleList" resultType="com.upbos.upm.entity.Role">
-  	select r.* from upm_user_role ur, upm_role r 
-  	where ur.role_id = r.id and ur.user_id = #{uid}
-  </select>
-  
-  <select id="queryPasswordModifyTime" resultType="date">
-  	select password_modify_time from upm_user u where u.uid = #{uid}
-  </select>
+<mapper namespace="upm.login">
+
+    <!-- 根据登录名查询用户 -->
+    <select id="queryUserByLoginName" resultType="com.upbos.upm.entity.User">
+        SELECT *
+        FROM upm_user
+        WHERE login_name = #{loginName} AND password = #{password}
+    </select>
+
+    <select id="queryUserModule" resultType="com.upbos.upm.entity.Module">
+        SELECT
+            m.id,
+            m.name,
+            CONCAT(s.prefix_url, m.url) url,
+            m.parent_id,
+            m.icon,
+            m.is_single,
+            m.is_popup,
+            m.is_autorun,
+            m.is_leaf,
+            m.idx,
+            s.id toSysId
+        FROM upm_module m,
+            (
+                SELECT DISTINCT rm.module_id
+                FROM upm_user_role ur, upm_role_module rm
+                WHERE ur.user_id = #{uid}
+                      AND ur.role_id = rm.role_id
+            ) r,
+            upm_sys s
+        WHERE m.is_leaf AND m.id = r.module_id AND s.id = m.to_sys_id
+    </select>
+
+    <select id="queryParentModule" resultType="com.upbos.upm.entity.Module">
+        SELECT
+            m.id,
+            m.name,
+            m.url,
+            m.parent_id,
+            m.icon,
+            m.is_single,
+            m.is_popup,
+            m.is_autorun,
+            m.is_leaf,
+            m.idx
+        FROM upm_module m
+        WHERE m.is_leaf = 0
+    </select>
+
+    <select id="queryOrgById" resultType="com.upbos.upm.entity.Org">
+        SELECT *
+        FROM upm_org o
+        WHERE o.id = #{orgId}
+    </select>
+
+    <select id="queryUserRoleList" resultType="com.upbos.upm.entity.Role">
+        SELECT r.*
+        FROM upm_user_role ur, upm_role r
+        WHERE ur.role_id = r.id AND ur.user_id = #{uid}
+    </select>
+
+    <select id="queryPasswordModifyTime" resultType="date">
+        SELECT password_modify_time
+        FROM upm_user u
+        WHERE u.uid = #{uid}
+    </select>
+
+    <select id="listSys" resultType="com.upbos.upm.entity.Sys">
+        SELECT
+            id,
+            is_checked_login,
+            login_url,
+            login_username,
+            login_password
+        FROM upm_sys
+    </select>
 </mapper>

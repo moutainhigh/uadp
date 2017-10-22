@@ -10,14 +10,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.upbos.upm.entity.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.upbos.framework.data.mybatis.MybatisTplDao;
-import com.upbos.upm.entity.Module;
-import com.upbos.upm.entity.Org;
-import com.upbos.upm.entity.Role;
-import com.upbos.upm.entity.User;
 import com.upbos.util.encrypt.MD5;
 
 @Service
@@ -28,7 +25,11 @@ public class LoginService {
 	@Value("${has.PasswordSalt}")
 	public boolean hasPasswordSalt = true;
 	
-	
+
+	public List<Sys> listSys() {
+		return dao.queryForList("upm.login.listSys");
+	}
+
 	public int needModifyPassword(String uid) {
 		Date date = dao.queryForOne("upm.login.queryPasswordModifyTime", uid);
 		if(date == null) {

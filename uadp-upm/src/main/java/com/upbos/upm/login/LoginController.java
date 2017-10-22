@@ -165,8 +165,10 @@ public class LoginController {
 				}
 			}
 		}
+
 		result.put("isTopMenu", isTopMenu);
 		result.put("appTitle", appTitle);
+		result.put("sysList", srv.listSys());
 		return result;
 	}
 	

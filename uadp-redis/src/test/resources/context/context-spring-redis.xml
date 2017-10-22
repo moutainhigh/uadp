@@ -24,6 +24,7 @@
                 <value>${cache.cluster.redis.nodes}</value>
             </list>
         </constructor-arg>
+
     </bean>
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxTotal" value="300"/>
@@ -35,11 +36,18 @@
         <property name="testWhileIdle" value="true"/>
         <!-- <property name="testWhileIdle" value="true"/> -->
     </bean>
+    <!--
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:use-pool="true">
-        <!--<constructor-arg ref="sentinelConfig" />-->
         <constructor-arg ref="clusterConfig"/>
         <constructor-arg ref="jedisPoolConfig" />
     </bean>
+    -->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:use-pool="true"
+          p:hostName="${cache.redis.single.host}" p:port="${cache.redis.single.port}" p:password="myzh1234">
+        <constructor-arg ref="jedisPoolConfig" />
+    </bean>
+
+
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory" />
         <property name="keySerializer">
@@ -48,7 +56,19 @@
         <property name="hashKeySerializer">
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
         </property>
+        <!--<property name="valueSerializer">-->
+        <!--<bean class="com.upbos.cache.redis.FastJsonRedisSerializer" />-->
+        <!--</property>-->
+        <!--<property name="hashValueSerializer">-->
+            <!--<bean class="com.upbos.cache.redis.FastJsonRedisSerializer" />-->
+        <!--</property>-->
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer" />
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer" />
+        </property>
     </bean>
-    
+
     <bean id="redisService" class="com.upbos.cache.redis.RedisCacheUseSpringServiceImpl"/>
 </beans>

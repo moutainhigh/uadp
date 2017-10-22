@@ -36,8 +36,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 @RestController
 @RequestMapping("upm/user")
 public class UserController {
-	
-	private static Logger log = LogManager.getLogger(UserController.class);	
+	private static Logger log = LogManager.getLogger(UserController.class);
 	
 	@Resource
 	private UserService srv;
@@ -69,7 +68,7 @@ public class UserController {
 	 */
 	@RequestMapping("insertUser")
 	public Map<String, Object> insertUser(HttpServletRequest req, User user) {
-		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<String, Object>(16);
 		if(!srv.checkLoginNameOnly(user.getLoginName())) {
 			result.put("success", false);
 			result.put("msg", "登录帐号已经存在！");
@@ -120,7 +119,7 @@ public class UserController {
         defaultFormat.setCaseType(HanyuPinyinCaseType.UPPERCASE);  
         defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);  
         for (int i = 0; i < nameChar.length; i++) {  
-            if (nameChar[i] > 128) {  
+            if (nameChar[i] > 128) {
                 	pinyinName.append(PinyinHelper.toHanyuPinyinStringArray(nameChar[i], defaultFormat)[0]);  
             }else{  
                 pinyinName.append(nameChar[i]);  

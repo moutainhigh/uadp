@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * <b>Date：</b> 2017年10月18日 17:09 <br>
  * <b>author：</b> <a href="mailto:wjzchina2008@126.com"> Jason </a>
  * <b>version：</b>V3.0.0
+ * @author wangjz
  */
 @RestController
 @RequestMapping("upm/dict")

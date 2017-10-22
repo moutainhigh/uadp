@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.upbos.upm.entity.Module;
 
+/**
+ * @author wangjz
+ */
 @RestController
 @RequestMapping("upm/module")
 public class ModuleController {
@@ -17,19 +20,19 @@ public class ModuleController {
 	@Resource
 	private ModuleService srv;
 	
-	@RequestMapping("queryModule")
-	public List<Module> queryModule(Integer id, Boolean cascade) {
-		return srv.queryModule(id, cascade);
+	@RequestMapping("listModule")
+	public List<Module> listModule(Integer id) {
+		return srv.listModule(id);
 	}
 	
-	@RequestMapping("queryModuleByName")
-	public List<Module> queryModuleByName(String name) {
-		return srv.queryModuleByName(name);
+	@RequestMapping("listModuleByName")
+	public List<Module> listModuleByName(String name) {
+		return srv.listModuleByName(name);
 	}
 	
-	@RequestMapping("insertModule")
-	public void insertModule(Module m) {
-		srv.insertModule(m);
+	@RequestMapping("addModule")
+	public void addModule(Module m) {
+		srv.addModule(m);
 	}
 	
 	@RequestMapping("updateModule")
@@ -37,14 +40,14 @@ public class ModuleController {
 		srv.updateModule(m);
 	}
 	
-	@RequestMapping("delModule")
-	public void delModule(Integer id) {
-		srv.delModule(id);
+	@RequestMapping("deleteModule")
+	public void deleteModule(Integer id) {
+		srv.deleteModule(id);
 	}
 	
-	@RequestMapping("queryModuleTree")
-	public List<Map<String, Object>> queryModuleTree() {
-		return srv.queryModuleTree();
+	@RequestMapping("listModuleTree")
+	public List<Map<String, Object>> listModuleTree() {
+		return srv.listModuleTree();
 	}
 	
 	/**

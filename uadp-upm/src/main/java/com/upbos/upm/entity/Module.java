@@ -17,8 +17,9 @@ public class Module implements Comparable<Module>{
 	private Boolean isLeaf;
 	private Integer isFixed;
 	private Integer idx;
+	private String toSysId;
 	private List<Module> children;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -85,7 +86,7 @@ public class Module implements Comparable<Module>{
 	public void setIsAutorun(Integer isAutorun) {
 		this.isAutorun = isAutorun;
 	}
-	
+
 	public Boolean getIsLeaf() {
 		return isLeaf;
 	}
@@ -110,7 +111,15 @@ public class Module implements Comparable<Module>{
 	public void setChildren(List<Module> children) {
 		this.children = children;
 	}
-	
+
+	public String getToSysId() {
+		return toSysId;
+	}
+
+	public void setToSysId(String toSysId) {
+		this.toSysId = toSysId;
+	}
+
 	@Override
 	public int compareTo(Module o) {
 		return this.idx.compareTo(o.idx);

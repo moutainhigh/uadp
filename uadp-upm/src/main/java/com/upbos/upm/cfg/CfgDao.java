@@ -13,6 +13,9 @@ import org.springframework.stereotype.Repository;
 import com.upbos.upm.entity.Cfg;
 import com.upbos.framework.data.mybatis.MybatisTplDao;
 
+/**
+ * @author wangjz 
+ */
 @Repository("cfgDao")
 public class CfgDao {
 
@@ -23,7 +26,7 @@ public class CfgDao {
         if (value != null && !"".equals(value)) {
             value = "%" + value + "%";
         }
-        Map<String, String> p = new HashMap<String, String>();
+        Map<String, String> p = new HashMap<String, String>(16);
         p.put("value", value);
         return dao.queryForPagination(pageNo, pageSize, "upm.cfg.listCfg", p);
     }
@@ -55,7 +58,9 @@ public class CfgDao {
 
     public Cfg getCfg(String key) {
         List<Cfg> list = this.listCfgByKey(key);
-        if(list == null) return null;
+        if(list == null) {
+            return null;
+        }
         return list.get(0);
     }
 }
