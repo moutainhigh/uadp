@@ -21,7 +21,7 @@ package com.upbos.util.exception;
  * </p>
  * 
  * @author hubin
- * @Date 2015-01-09
+ * @since  2015-01-09
  */
 public class AESException extends Exception {
 

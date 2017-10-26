@@ -27,7 +27,7 @@ import com.upbos.util.encrypt.MD5;
  * </p>
  * 
  * @author hubin
- * @Date 2014-5-8
+ * @since 2014-5-8
  */
 public class BrowserUtils {
 
@@ -35,10 +35,9 @@ public class BrowserUtils {
 
 	/**
 	 * 混淆浏览器版本信息
-	 * 
-	 * @Description 获取浏览器客户端信息签名值
-	 * @param request
-	 * @return
+	 * @param request req
+	 * @param value v
+	 * @return string
 	 */
 	public static String getUserAgent(HttpServletRequest request, String value) {
 		StringBuffer sf = new StringBuffer();
@@ -54,13 +53,11 @@ public class BrowserUtils {
 	}
 
 	/**
-	 * <p>
 	 * 请求浏览器是否合法 (只校验客户端信息不校验domain)
-	 * </p>
-	 * @param request
-	 * @param userAgent
-	 *            浏览器客户端信息
-	 * @return
+	 * @param request 请求
+	 * @param value value
+	 * @param userAgent userAgent
+	 * @return 是否合法
 	 */
 	public static boolean isLegalUserAgent(HttpServletRequest request, String value, String userAgent) {
 		String rlt = getUserAgent(request, value);

@@ -7,7 +7,7 @@ package com.upbos.framework.data.dialect;
  * <p>Copyright: Copyright (c) 2010-2013</p>
  * <p>Company: upbos.com</p>
  * @author wangjz
- * @date 2013年10月13日
+ * @since 2013年10月13日
  * @version 2.0.0
  */
 public abstract class Dialect { 
@@ -30,9 +30,9 @@ public abstract class Dialect {
 	 * <p>方法名称：getLimitString</p>
 	 * <p>方法描述：获取分页后的sql语句</p>
 	 * @param sql 需要分页的sql
-	 * @param offset 
-	 * @param limit
-	 * @return
+	 * @param offset 偏移量
+	 * @param limit 条数
+	 * @return string
 	 * @author wangjz
 	 * @since 2013年10月10日
 	 */

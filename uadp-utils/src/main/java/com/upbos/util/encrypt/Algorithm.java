@@ -21,7 +21,7 @@ package com.upbos.util.encrypt;
  * </p>
  * 
  * @author hubin
- * @Date 2016-01-20
+ * @since  2016-01-20
  */
 public enum Algorithm {
 	DES("DES", "DES encrypt"), AES("AES", "AES encrypt"), BLOWFISH("BLOWFISH", "Blowfish encrypt"), RC2("RC2",

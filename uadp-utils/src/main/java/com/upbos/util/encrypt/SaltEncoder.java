@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * </p>
  * 
  * @author hubin
- * @Date 2016-01-20
+ * @since  2016-01-20
  */
 public class SaltEncoder {
 
@@ -65,7 +65,7 @@ public class SaltEncoder {
 	 * 				盐值
 	 * @param rawText
 	 *				需要加密的字符串
-	 * @return
+	 * @return string
 	 */
 	public static String md5SaltEncode( String salt, String rawText ) {
 		return new SaltEncoder(salt, MD5.ALGORITHM).encode(rawText);
@@ -83,7 +83,7 @@ public class SaltEncoder {
 	 * 				加密后的文本内容
 	 * @param rawText
 	 * 				加密前的文本内容
-	 * @return
+	 * @return boolean
 	 */
 	public static boolean md5SaltValid( String salt, String encodeText, String rawText ) {
 		return new SaltEncoder(salt, MD5.ALGORITHM).isValid(encodeText, rawText);
@@ -97,7 +97,7 @@ public class SaltEncoder {
 	 * 
 	 * @param rawText
 	 *            需要加密的字符串
-	 * @return
+	 * @return string
 	 */
 	public String encode( String rawText ) {
 		try {
@@ -122,7 +122,7 @@ public class SaltEncoder {
 	 * 				加密后的文本内容
 	 * @param rawText
 	 * 				加密前的文本内容
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isValid( String encodeText, String rawText ) {
 		return this.encode(rawText).equals(encodeText);
@@ -136,7 +136,7 @@ public class SaltEncoder {
 	 * 
 	 * @param rawText
 	 * 				需要加密的字符串
-	 * @return
+	 * @return string
 	 */
 	private String mergeRawTextAndSalt( String rawText ) {
 		if ( rawText == null ) {

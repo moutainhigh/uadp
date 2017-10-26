@@ -9,7 +9,7 @@ import java.util.List;
  * <p>Copyright: Copyright (c) 2010-2013</p>
  * <p>Company: upbos.com</p>
  * @author wangjzd
- * @date 2013年10月13日
+ * @since 2013年10月13日
  * @version 2.0.0
  */
 public class Pagination implements Serializable {

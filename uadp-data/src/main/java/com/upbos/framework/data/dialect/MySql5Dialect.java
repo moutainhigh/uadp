@@ -6,7 +6,7 @@ package com.upbos.framework.data.dialect;
  * <p>Copyright: Copyright (c) 2010-2013</p>
  * <p>Company: upbos.com</p>
  * @author wangjz
- * @date 2013年10月13日
+ * @since 2013年10月13日
  * @version 2.0.0
  */
 public class MySql5Dialect extends Dialect {
@@ -18,7 +18,7 @@ public class MySql5Dialect extends Dialect {
 	 * @param sql 需要分页的原始sql
 	 * @param offset 偏移量
 	 * @param limit 条数
-	 * @return
+	 * @return String
 	 * @author wangjz
 	 * @since 2013年10月13日
 	 */

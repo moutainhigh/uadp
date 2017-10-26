@@ -21,7 +21,7 @@ package com.upbos.util.encrypt;
  * </p>
  * 
  * @author hubin
- * @Date 2014-5-9
+ * @since  2014-5-9
  */
 public interface UadpEncrypt {
 
@@ -33,8 +33,8 @@ public interface UadpEncrypt {
 	 *            加密内容
 	 * @param key
 	 *            密钥
-	 * @return
-	 * @throws Exception
+	 * @return string
+	 * @throws Exception exception
 	 */
 	String encrypt(String value, String key) throws Exception;
 
@@ -46,8 +46,8 @@ public interface UadpEncrypt {
 	 *            解密内容
 	 * @param key
 	 *            密钥
-	 * @return
-	 * @throws Exception
+	 * @return string
+	 * @throws Exception exception
 	 */
 	String decrypt(String value, String key) throws Exception;
 }

@@ -392,12 +392,12 @@ public class StringUtils {
 
     /**
      * Joins the elements of the provided {@code Iterator} into
-     * a single String containing the provided elements.</p>
-     * <p/>
+     * a single String containing the provided elements.
+     *
      * No delimiter is added before or after the list.
-     * A {@code null} separator is the same as an empty String ("").</p>
-     * <p/>
-     * Copied from Commons Lang, version 3 (r1138702).</p>
+     * A {@code null} separator is the same as an empty String ("").
+     *
+     * Copied from Commons Lang, version 3 (r1138702).
      *
      * @param iterator  the {@code Iterator} of values to join together, may be null
      * @param separator the separator character to use, null treated as ""

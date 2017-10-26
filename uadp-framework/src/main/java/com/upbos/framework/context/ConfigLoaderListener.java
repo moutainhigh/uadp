@@ -14,7 +14,6 @@ import org.springframework.core.io.support.ResourcePropertySource;
  * <p>Copyright: Copyright (c) 2015-2016</p>
  * <p>Company: 明医众禾科技（北京）有限责任公司</p>
  * @author wangjz
- * @date 2016年1月30日
  * @version 2.0.0
  */
 public class ConfigLoaderListener implements ServletContextListener {

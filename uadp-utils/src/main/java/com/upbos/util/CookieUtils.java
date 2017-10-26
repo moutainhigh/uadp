@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  * </p>
  * 
  * @author hubin
- * @Date 2014-5-8
+ * @since  2014-5-8
  */
 public class CookieUtils {
 	private static final Logger logger = Logger.getLogger("CookieUtils");
@@ -44,7 +44,7 @@ public class CookieUtils {
 	 * 根据cookieName获取Cookie
 	 * </p>
 	 * 
-	 * @param request
+	 * @param request request
 	 * @param cookieName
 	 *            Cookie name
 	 * @return Cookie
@@ -66,9 +66,9 @@ public class CookieUtils {
 	 * <p>
 	 * 根据 cookieName 清空 Cookie【默认域下】
 	 * </p>
-	 * 
-	 * @param response
-	 * @param cookieName
+	 * @param request request
+	 * @param response response
+	 * @param cookieName cookieName
 	 */
 	public static void clearCookieByName(HttpServletRequest request, HttpServletResponse response, String cookieName) {
 		Cookie cookie = findCookieByName(request, cookieName);
@@ -86,13 +86,12 @@ public class CookieUtils {
 	 * 清除指定doamin的所有Cookie
 	 * </p>
 	 * 
-	 * @param request
-	 * @param response
+	 * @param request request
+	 * @param response response
 	 * @param domain
 	 *            Cookie所在的域
 	 * @param path
 	 *            Cookie 路径
-	 * @return
 	 */
 	public static void clearAllCookie(HttpServletRequest request, HttpServletResponse response, String domain,
 			String path) {
@@ -113,8 +112,8 @@ public class CookieUtils {
 	 * 根据cookieName清除指定Cookie
 	 * </p>
 	 * 
-	 * @param request
-	 * @param response
+	 * @param request request
+	 * @param response response
 	 * @param cookieName
 	 *            cookie name
 	 * @param domain
@@ -179,7 +178,7 @@ public class CookieUtils {
 	 * 添加 Cookie
 	 * </p>
 	 * 
-	 * @param response
+	 * @param response response
 	 * @param domain
 	 *            所在域
 	 * @param path

@@ -37,8 +37,8 @@ import javax.servlet.http.HttpServletResponse;
  * HTTP工具类
  * </p>
  * 
- * @author hubin
- * @Date 2014-5-8
+ * @author wangjz
+ * @since  2014-5-8
  */
 public class HttpUtils {
 
@@ -96,7 +96,7 @@ public class HttpUtils {
 	 * 
 	 * @param request
 	 * 				当前请求
-	 * @return
+	 * @return boolean
 	 */
 	public static boolean isAjax( HttpServletRequest request ) {
 		return "XMLHttpRequest".equals(request.getHeader("X-Requested-With")) ? true : false;
@@ -110,11 +110,11 @@ public class HttpUtils {
 	 * 获取当前 URL 包含查询条件
 	 * </p>
 	 * 
-	 * @param request
+	 * @param request request
 	 * @param encode
 	 *            URLEncoder编码格式
-	 * @return
-	 * @throws IOException
+	 * @return string
+	 * @throws IOException 异常
 	 */
 	public static String getQueryString(HttpServletRequest request, String encode) throws IOException {
 		StringBuffer sb = new StringBuffer(request.getRequestURL());
@@ -138,7 +138,7 @@ public class HttpUtils {
 	 *            返回地址参数名
 	 * @param retUrl
 	 *            返回地址
-	 * @return
+	 * @return string
 	 */
 	public static String encodeRetURL(String url, String retParam, String retUrl) {
 		return encodeRetURL(url, retParam, retUrl, null);
@@ -155,9 +155,9 @@ public class HttpUtils {
 	 *            返回地址参数名
 	 * @param retUrl
 	 *            返回地址
-	 * @param Map
+	 * @param data
 	 *            携带参数
-	 * @return
+	 * @return string
 	 */
 	public static String encodeRetURL(String url, String retParam, String retUrl, Map<String, String> data) {
 		if (url == null) {
@@ -191,7 +191,7 @@ public class HttpUtils {
 	 * 
 	 * @param url
 	 *            解码地址
-	 * @return
+	 * @return string
 	 */
 	public static String decodeURL(String url) {
 		if (url == null) {
@@ -214,7 +214,7 @@ public class HttpUtils {
 	 * GET 请求
 	 * </p>
 	 * 
-	 * @param request
+	 * @param request request
 	 * @return boolean
 	 */
 	public static boolean isGet(HttpServletRequest request) {
@@ -229,7 +229,7 @@ public class HttpUtils {
 	 * POST 请求
 	 * </p>
 	 * 
-	 * @param request
+	 * @param request request
 	 * @return boolean
 	 */
 	public static boolean isPost(HttpServletRequest request) {
@@ -264,8 +264,9 @@ public class HttpUtils {
 	 * 获取Request Playload 内容
 	 * </p>
 	 * 
-	 * @param request
+	 * @param request request
 	 * @return Request Playload 内容
+	 * @throws  IOException ioException
 	 */
 	public static String requestPlayload(HttpServletRequest request) throws IOException {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -301,7 +302,7 @@ public class HttpUtils {
 	 * 获取当前完整请求地址
 	 * </p>
 	 * 
-	 * @param request
+	 * @param request request
 	 * @return 请求地址
 	 */
 	public static String getRequestUrl(HttpServletRequest request) {
@@ -330,8 +331,9 @@ public class HttpUtils {
 
 	/**
 	 * 解析请求参数
-	 * @param request
-	 * @return
+	 * @param request 请求
+	 * @return map
+	 *
 	 */
 	public static Map<String, String> parseRequestParams(HttpServletRequest request){
 		Map<String, String> m = new HashMap<String, String>();
@@ -349,10 +351,10 @@ public class HttpUtils {
 
 	/**
 	 * 写响应数据
-	 * @param response
-	 * @param content
-	 * @param encoding
-	 * @throws IOException
+	 * @param response res
+	 * @param content content
+	 * @param encoding encoding
+	 * @throws IOException 异常
 	 */
 	public static void writeResponse(HttpServletResponse response, String content, String encoding) throws IOException {
 		if (StringUtils.isNotBlank(encoding)) {
@@ -364,8 +366,8 @@ public class HttpUtils {
 
 	/**
 	 * 获取请求头信息
-	 * @param request
-	 * @return
+	 * @param request 请求
+	 * @return map
 	 */
 	public static Map<String, String> getHeaderMap(HttpServletRequest request) {
 		Map<String,String> headers = new HashMap<String,String>();

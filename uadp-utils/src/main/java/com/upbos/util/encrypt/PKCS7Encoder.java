@@ -24,7 +24,7 @@ import java.util.Arrays;
  * </p>
  * 
  * @author hubin
- * @Date 2015-01-09
+ * @since  2015-01-09
  */
 public class PKCS7Encoder {
 	private static final int BLOCK_SIZE = 32;

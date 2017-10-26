@@ -6,7 +6,7 @@ package com.upbos.framework.data.dialect;
  * <p>Copyright: Copyright (c) 2010-2013</p>
  * <p>Company: upbos.com</p>
  * @author wangjz
- * @date 2013年10月13日
+ * @since 2013年10月13日
  * @version 2.0.0
  */
 public class OracleDialect extends Dialect {

@@ -11,11 +11,11 @@ import java.util.Map;
 
 /**
  * <p>Title: MybatisTplDaoImpl.java</p>
- * <p>Description: mybatis数据持久层实现<／p>
+ * <p>Description: mybatis数据持久层实现</p>
  * <p>Copyright: Copyright (c) 2010-2013</p>
  * <p>Company: upbos.com</p>
  * @author wangjz
- * @date 2013年10月13日
+ * @since 2013年10月13日
  * @version 2.0.0
  */
 public class MybatisTplDaoImpl implements MybatisTplDao {
@@ -29,17 +29,21 @@ public class MybatisTplDaoImpl implements MybatisTplDao {
 		this.sqlTpl = sqlTpl;
 	}
 
+	@Override
 	public int insert(String sqlId) {
 		return sqlTpl.insert(sqlId);
 	}
 
+	@Override
 	public int insert(String sqlId, Object parameter) {
 		return sqlTpl.insert(sqlId, parameter);
 	}
 
 	@Override
 	public int batchInsert(String sqlId, List parameter, int batchSize) {
-		if (0 == batchSize) batchSize = 500;
+		if (0 == batchSize) {
+			batchSize = 500;
+		}
 		int returnValue = 0, total = parameter.size();
 		if (total <= batchSize){
 			returnValue = sqlTpl.insert(sqlId, parameter);
@@ -59,63 +63,63 @@ public class MybatisTplDaoImpl implements MybatisTplDao {
 		}
 		return returnValue;
 	}
-
+	@Override
 	public int update(String sqlId) {
 		return sqlTpl.update(sqlId);
 	}
-
+	@Override
 	public int update(String sqlId, Object parameter) {
 		return sqlTpl.update(sqlId, parameter);
 	}
-
+	@Override
 	public int delete(String sqlId) {
 		return sqlTpl.delete(sqlId);
 	}
-
+	@Override
 	public int delete(String sqlId, Object parameter) {
 		return sqlTpl.delete(sqlId, parameter);
 	}
-
+	@Override
 	public <T> List<T> queryForList(String sqlId) {
 		return sqlTpl.selectList(sqlId);
 	}
-
+	@Override
 	public <T> List<T> queryForList(String sqlId, Object parameter) {
 		return sqlTpl.selectList(sqlId, parameter);
 	}
-
+	@Override
 	public Pagination queryForPagination(int pageNo, int pageSize, String sqlId) {
 		return queryForPagination(pageNo, pageSize, sqlId, null);
 	}
-
+	@Override
 	public <T> List<T> queryForPaginationWithoutTotal(int pageNo, int pageSize, String sqlId) {
 		Pagination p = queryForPaginationExt(pageNo, pageSize, sqlId, null, false);
 		return p.getRows();
 	}
-
+	@Override
 	public <T> List<T> queryForPaginationWithoutTotal(int pageNo, int pageSize, String sqlId, Object parameter) {
 		Pagination p = queryForPaginationExt(pageNo, pageSize, sqlId, parameter, false);
 		return p.getRows();
 	}
 
-
+	@Override
 	public Pagination queryForPagination(int pageNo, int pageSize, String sqlId, Object parameter) {
 		return queryForPaginationExt(pageNo, pageSize, sqlId, parameter, true);
 	}
 
-
+	@Override
 	public <K, V> Map<K, V> queryForMap(String sqlId) {
 		return sqlTpl.selectOne(sqlId);
 	}
-
+	@Override
 	public <K, V> Map<K, V> queryForMap(String sqlId, Object parameter) {
 		return sqlTpl.selectOne(sqlId, parameter);
 	}
-
+	@Override
 	public <T> T queryForOne(String sqlId) {
 		return sqlTpl.selectOne(sqlId);
 	}
-
+	@Override
 	public <T> T queryForOne(String sqlId, Object parameter) {
 		return sqlTpl.selectOne(sqlId, parameter);
 	}
@@ -124,7 +128,9 @@ public class MybatisTplDaoImpl implements MybatisTplDao {
 		Pagination p = new Pagination();
 		p.setPageNo(pageNo);
 		p.setPageSize(pageSize);
-		if(pageNo > 0) pageNo = pageNo - 1;
+		if(pageNo > 0) {
+			pageNo = pageNo - 1;
+		}
 		PaginationRowBounds prd = new PaginationRowBounds(pageNo*pageSize, pageSize);
 		prd.setPagination(p);
 		prd.setHasTotal(hasTotal);

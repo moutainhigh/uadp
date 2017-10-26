@@ -35,19 +35,14 @@ import javax.crypto.Cipher;
 import com.upbos.util.Base64Utils;
 
 /**
- * <p>
- * RSA公钥/私钥/签名工具包
- * </p>
- * <p>
- * 罗纳德·李维斯特（Ron [R]ivest）、阿迪·萨莫尔（Adi [S]hamir）和伦纳德·阿德曼（Leonard [A]dleman）
- * </p>
- * <p>
- * 字符串格式的密钥在未在特殊说明情况下都为BASE64编码格式<br/>
- * 由于非对称加密速度极其缓慢，一般文件不使用它来加密而是使用对称加密，<br/>
+ * <p>RSA公钥/私钥/签名工具包</p>
+ * <p>罗纳德·李维斯特（Ron [R]ivest）、阿迪·萨莫尔（Adi [S]hamir）和伦纳德·阿德曼（Leonard [A]dleman）</p>
+ * <p>字符串格式的密钥在未在特殊说明情况下都为BASE64编码格式
+ * 由于非对称加密速度极其缓慢，一般文件不使用它来加密而是使用对称加密，
  * 非对称加密算法可以用来对对称加密的密钥加密，这样保证密钥的安全也就保证了数据的安全
  * </p>
- * @author   hubin
- * @Date	 2014-6-17
+ * @author wangjz
+ * @since 2017-10-10
  */
 public class RSA {
 
@@ -82,12 +77,9 @@ public class RSA {
 	private static final int MAX_DECRYPT_BLOCK = 128;
 
 	/**
-	 * <p>
 	 * 生成密钥对(公钥和私钥)
-	 * </p>
-	 * 
-	 * @return
-	 * @throws Exception
+	 * @return map
+	 * @throws Exception Exception
 	 */
 	public static Map<String, Object> genKeyPair() throws Exception {
 		KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
@@ -102,15 +94,11 @@ public class RSA {
 	}
 
 	/**
-	 * <p>
 	 * 用私钥对信息生成数字签名
-	 * </p>
-	 * 
 	 * @param data 已加密数据
 	 * @param privateKey 私钥(BASE64编码)
-	 * 
-	 * @return
-	 * @throws Exception
+	 * @return string
+	 * @throws Exception exception
 	 */
 	public static String sign(byte[] data, String privateKey) throws Exception {
 		byte[] keyBytes = Base64Utils.decode(privateKey);
@@ -123,18 +111,14 @@ public class RSA {
 		return Base64Utils.encode(signature.sign());
 	}
 
+
 	/**
-	 * <p>
 	 * 校验数字签名
-	 * </p>
-	 * 
 	 * @param data 已加密数据
 	 * @param publicKey 公钥(BASE64编码)
 	 * @param sign 数字签名
-	 * 
-	 * @return
-	 * @throws Exception
-	 * 
+	 * @return true/false
+	 * @throws Exception exception
 	 */
 	public static boolean verify(byte[] data, String publicKey, String sign) throws Exception {
 		byte[] keyBytes = Base64Utils.decode(publicKey);
@@ -148,14 +132,11 @@ public class RSA {
 	}
 
 	/**
-	 * <P>
 	 * 私钥解密
-	 * </p>
-	 * 
 	 * @param encryptedData 已加密数据
 	 * @param privateKey 私钥(BASE64编码)
-	 * @return
-	 * @throws Exception
+	 * @return byte[]
+	 * @throws Exception excpetion
 	 */
 	public static byte[] decryptByPrivateKey(byte[] encryptedData, String privateKey) throws Exception {
 		byte[] keyBytes = Base64Utils.decode(privateKey);
@@ -186,14 +167,11 @@ public class RSA {
 	}
 
 	/**
-	 * <p>
 	 * 公钥解密
-	 * </p>
-	 * 
 	 * @param encryptedData 已加密数据
 	 * @param publicKey 公钥(BASE64编码)
-	 * @return
-	 * @throws Exception
+	 * @return byte[]
+	 * @throws Exception exception
 	 */
 	public static byte[] decryptByPublicKey(byte[] encryptedData, String publicKey) throws Exception {
 		byte[] keyBytes = Base64Utils.decode(publicKey);
@@ -224,14 +202,11 @@ public class RSA {
 	}
 
 	/**
-	 * <p>
 	 * 公钥加密
-	 * </p>
-	 * 
 	 * @param data 源数据
 	 * @param publicKey 公钥(BASE64编码)
-	 * @return
-	 * @throws Exception
+	 * @return byte[]
+	 * @throws Exception exception
 	 */
 	public static byte[] encryptByPublicKey(byte[] data, String publicKey) throws Exception {
 		byte[] keyBytes = Base64Utils.decode(publicKey);
@@ -269,8 +244,8 @@ public class RSA {
 	 * 
 	 * @param data 源数据
 	 * @param privateKey 私钥(BASE64编码)
-	 * @return
-	 * @throws Exception
+	 * @return byte[]
+	 * @throws Exception exception
 	 */
 	public static byte[] encryptByPrivateKey(byte[] data, String privateKey) throws Exception {
 		byte[] keyBytes = Base64Utils.decode(privateKey);
@@ -306,8 +281,8 @@ public class RSA {
 	 * </p>
 	 * 
 	 * @param keyMap 密钥对
-	 * @return
-	 * @throws Exception
+	 * @return string
+	 * @throws Exception  exception
 	 */
 	public static String getPrivateKey(Map<String, Object> keyMap) throws Exception {
 		Key key = (Key) keyMap.get(PRIVATE_KEY);
@@ -320,8 +295,8 @@ public class RSA {
 	 * </p>
 	 * 
 	 * @param keyMap 密钥对
-	 * @return
-	 * @throws Exception
+	 * @return string
+	 * @throws Exception exception
 	 */
 	public static String getPublicKey(Map<String, Object> keyMap) throws Exception {
 		Key key = (Key) keyMap.get(PUBLIC_KEY);

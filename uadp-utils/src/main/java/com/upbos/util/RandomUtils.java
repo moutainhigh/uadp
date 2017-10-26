@@ -23,8 +23,8 @@ import java.util.UUID;
  * 随机数工具类
  * </p>
  * 
- * @author hubin
- * @Date 2014-5-9
+ * @author wangjz
+ * @since 2017-10-10
  */
 public class RandomUtils {
 
@@ -36,7 +36,7 @@ public class RandomUtils {
 	 * 
 	 * @param length
 	 *            指定字符串长度
-	 * @return
+	 * @return string
 	 */
 	public static String getCharacterAndNumber(int length) {
 		String val = "";
@@ -74,6 +74,7 @@ public class RandomUtils {
 	 * <p>
 	 * 获取去掉"-" UUID
 	 * </p>
+	 * @return 32uuid
 	 */
 	public static String get32UUID() {
 		return UUID.randomUUID().toString().replace("-", "");
@@ -83,6 +84,7 @@ public class RandomUtils {
 	 * <p>
 	 * 获取唯一 UUID
 	 * </p>
+	 * @return uuid
 	 */
 	public static String getUUID() {
 		return UUID.randomUUID().toString();

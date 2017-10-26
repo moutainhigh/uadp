@@ -46,8 +46,8 @@ import com.upbos.util.exception.AESException;
  * <li>如果安装了JDK，将两个jar文件放到%JDK_HOME%\jre\lib\security目录下覆盖原来文件</li>
  * </ol>
  * 
- * @author hubin
- * @Date 2015-01-09
+ * @author wangjz
+ * @since  2015-01-09
  */
 public class AESMsgCrypt {
 	private static final Logger logger = Logger.getLogger("AseMsgCrypt");
@@ -91,8 +91,8 @@ public class AESMsgCrypt {
 	 * 生成4个字节的网络字节序
 	 * </p>
 	 * 
-	 * @param sourceNumber
-	 * @return
+	 * @param sourceNumber number
+	 * @return byte[]
 	 */
 	public byte[] getNetworkBytesOrder(int sourceNumber) {
 		byte[] orderBytes = new byte[4];
@@ -109,8 +109,8 @@ public class AESMsgCrypt {
 	 * 还原4个字节的网络字节序
 	 * </p>
 	 * 
-	 * @param orderBytes
-	 * @return
+	 * @param orderBytes orderBytes
+	 * @return int
 	 */
 	public int recoverNetworkBytesOrder(byte[] orderBytes) {
 		int sourceNumber = 0;
@@ -130,7 +130,7 @@ public class AESMsgCrypt {
 	 * @param text
 	 *            需要加密的明文
 	 * @return 加密后base64编码的字符串
-	 * @throws AESException
+	 * @throws AESException exception
 	 *             {@link AESException}
 	 */
 	public String encrypt(String text) throws AESException {
@@ -180,7 +180,7 @@ public class AESMsgCrypt {
 	 * @param text
 	 *            需要解密的密文
 	 * @return 解密得到的明文
-	 * @throws AESException
+	 * @throws AESException exception
 	 *             {@link AESException}
 	 */
 	public String decrypt(String text) throws AESException {
@@ -237,14 +237,14 @@ public class AESMsgCrypt {
 
 	/**
 	 * 
-	 * <p>
+	 *
 	 * 将公众平台回复用户的消息加密打包.
 	 * <ol>
 	 * <li>对要发送的消息进行AES-CBC加密</li>
 	 * <li>生成安全签名</li>
 	 * <li>将消息密文和安全签名打包成xml格式</li>
 	 * </ol>
-	 * </p>
+	 *
 	 * 
 	 * @param replyMsg
 	 *            公众平台待回复用户的消息，xml格式的字符串
@@ -256,7 +256,7 @@ public class AESMsgCrypt {
 	 *            true XML 解析 ，false JSON 解析
 	 * @return 加密后的可以直接回复用户的密文，包括msg_signature, timestamp, nonce,
 	 *         encrypt的xml格式的字符串
-	 * @throws AESException
+	 * @throws AESException AESException
 	 *             {@link AESException}
 	 */
 	protected String encryptMsg(String replyMsg, String timeStamp, String nonce, boolean isXMLParser) throws AESException {
@@ -282,14 +282,14 @@ public class AESMsgCrypt {
 	}
 
 	/**
-	 * <p>
+	 *
 	 * 检验消息的真实性，并且获取解密后的明文.
 	 * <ol>
 	 * <li>利用收到的密文生成安全签名，进行签名验证</li>
 	 * <li>若验证通过，则提取xml中的加密消息</li>
 	 * <li>对消息进行解密</li>
 	 * </ol>
-	 * </p>
+	 *
 	 * 
 	 * @param msgSignature
 	 *            签名串，对应URL参数的msg_signature
@@ -300,7 +300,7 @@ public class AESMsgCrypt {
 	 * @param encrypt
 	 *            密文，对应POST请求的数据
 	 * @return 解密后的原文
-	 * @throws AESException
+	 * @throws AESException AESException
 	 *             {@link AESException}
 	 */
 	public String decryptMsg(String msgSignature, String timeStamp, String nonce, String encrypt)
@@ -333,7 +333,7 @@ public class AESMsgCrypt {
 	 * @param echoStr
 	 *            随机串，对应URL参数的echostr
 	 * @return 解密之后的echostr
-	 * @throws AESException
+	 * @throws AESException AESException
 	 *             {@link AESException}
 	 */
 	public String verifyUrl(String msgSignature, String timeStamp, String nonce, String echoStr) throws AESException {

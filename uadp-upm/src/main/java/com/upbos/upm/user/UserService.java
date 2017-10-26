@@ -22,7 +22,7 @@ import com.upbos.util.encrypt.MD5;
  * <p>Description: 用户管理服务层</p>
  * <p>Company： upbos.com</p>
  * @author wangjz
- * @date 2016年11月27日 下午5:18:15
+ * @since 2016年11月27日 下午5:18:15
  * @version v2.5.0
  */
 @Service("userService")

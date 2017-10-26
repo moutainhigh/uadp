@@ -57,8 +57,8 @@ import com.upbos.util.base64.UrlBase64;
  * RC4——所谓的RC4），因为RSA从来就没有正式发布过这个算法。
  * </p>
  * 
- * @author hubin
- * @Date 2016-08-11
+ * @author wangjz
+ * @since  2016-08-11
  */
 public class UadpSymmetrical implements UadpEncrypt {
 	private static final Logger logger = Logger.getLogger("SSOSymmetrical");
@@ -103,10 +103,10 @@ public class UadpSymmetrical implements UadpEncrypt {
 	/**
 	 * 解密
 	 * 
-	 * @param algorithm
-	 * @param data
-	 * @param key
-	 * @return
+	 * @param algorithm  algorithm
+	 * @param data data
+	 * @param key key
+	 * @return byte[]
 	 */
 	public byte[] decrypt(Algorithm algorithm, byte[] data, String key) {
 		try {
@@ -122,10 +122,10 @@ public class UadpSymmetrical implements UadpEncrypt {
 	/**
 	 * 加密
 	 * 
-	 * @param algorithm
-	 * @param data
-	 * @param key
-	 * @return
+	 * @param algorithm algorithm
+	 * @param data data
+	 * @param key key
+	 * @return byte[]
 	 */
 	public byte[] encrypt(Algorithm algorithm, byte[] data, String key) {
 		try {

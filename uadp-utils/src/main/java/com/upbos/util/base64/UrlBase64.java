@@ -20,7 +20,7 @@ public class UrlBase64 {
 
 	/**
 	 * Encode the input data producing a URL safe base 64 encoded byte array.
-	 *
+	 * @param data data
 	 * @return a byte array containing the URL safe base 64 encoded data.
 	 */
 	public static byte[] encode(byte[] data) {
@@ -37,7 +37,8 @@ public class UrlBase64 {
 
 	/**
 	 * Encode the byte data writing it to the given output stream.
-	 *
+	 * @param data data
+	 * @param out out
 	 * @return the number of bytes produced.
 	 */
 	public static int encode(byte[] data, OutputStream out) throws IOException {
@@ -48,6 +49,7 @@ public class UrlBase64 {
 	 * Decode the URL safe base 64 encoded input data - white space will be
 	 * ignored.
 	 *
+	 * @param data data
 	 * @return a byte array representing the decoded data.
 	 */
 	public static byte[] decode(byte[] data) {
@@ -66,7 +68,10 @@ public class UrlBase64 {
 	 * decode the URL safe base 64 encoded byte data writing it to the given
 	 * output stream, whitespace characters will be ignored.
 	 *
+	 * @param data data
+	 * @param out out
 	 * @return the number of bytes produced.
+	 * @throws IOException io
 	 */
 	public static int decode(byte[] data, OutputStream out) throws IOException {
 		return encoder.decode(data, 0, data.length, out);
@@ -76,6 +81,7 @@ public class UrlBase64 {
 	 * decode the URL safe base 64 encoded String data - whitespace will be
 	 * ignored.
 	 *
+	 * @param data data
 	 * @return a byte array representing the decoded data.
 	 */
 	public static byte[] decode(String data) {
@@ -94,7 +100,11 @@ public class UrlBase64 {
 	 * Decode the URL safe base 64 encoded String data writing it to the given
 	 * output stream, whitespace characters will be ignored.
 	 *
+	 * @param data data
+	 * @param out out
 	 * @return the number of bytes produced.
+	 * @throws IOException exception
+	 *
 	 */
 	public static int decode(String data, OutputStream out) throws IOException {
 		return encoder.decode(data, out);

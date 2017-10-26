@@ -5,7 +5,6 @@
 	<artifactId>uadp</artifactId>
 	<version>3.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
@@ -16,8 +15,36 @@
 		<spring.version>5.0.0.RELEASE</spring.version>
 		<log4j2.version>2.9.1</log4j2.version>
 	</properties>
+
+	<name>${project.groupId}:${project.artifactId}</name>
+	<url>https://github.com/upbos/uadp</url>
+	<description></description>
+
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Jason</name>
+			<email>wjzchina2008@126.com</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>+8</timezone>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:https://github.com/upbos/uadp.git</connection>
+		<developerConnection>scm:git:https://github.com/upbos/uadp.git</developerConnection>
+		<url>https://github.com/upbos/uadp</url>
+		<tag>v${project.version}</tag>
+	</scm>
 	<!-- 配置远程发布到私服，mvn deploy -->
-	<distributionManagement>
+	<!--<distributionManagement>
 		<repository>
 			<id>releases</id>
 			<name>Nexus Release Repository</name>
@@ -28,9 +55,62 @@
 			<name>Nexus Snapshot Repository</name>
 			<url>http://${rep.ip}:9091/content/repositories/snapshots/</url>
 		</snapshotRepository>
+	</distributionManagement>-->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<name>Maven Central Staging Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
 	</distributionManagement>
 	<build>
 		<plugins>
+			<!-- 上传maven仓库配置 -->
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.3</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.3</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+-->
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>-->
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -65,6 +145,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<!-- 打包时跳过单元测试 -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>

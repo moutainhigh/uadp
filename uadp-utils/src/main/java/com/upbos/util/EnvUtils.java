@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * </p>
  * 
  * @author hubin
- * @Date 2015-1-13
+ * @since  2015-1-13
  */
 public class EnvUtils {
 
@@ -54,6 +54,7 @@ public class EnvUtils {
 
 	/**
 	 * 返回当前系统变量的函数 结果放至 Properties
+	 * @return shuxing
 	 */
 	public static Properties getEnv() {
 		Properties prop = new Properties();

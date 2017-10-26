@@ -29,9 +29,9 @@ import java.util.logging.Logger;
  * <p>
  * MD5加密工具类
  * </p>
- * 
+ *
  * @author hubin
- * @Date 2014-5-9
+ * @since  2014-5-9
  */
 public class MD5 {
 	private static final Logger logger = Logger.getLogger("MD5");
@@ -39,10 +39,10 @@ public class MD5 {
 	public static final String ALGORITHM = "MD5";
 
 	/**
-	 * @Description 字符串加密为MD5 中文加密一致通用,必须转码处理： plainText.getBytes("UTF-8")
+	 *  字符串加密为MD5 中文加密一致通用,必须转码处理： plainText.getBytes("UTF-8")
 	 * @param plainText
 	 *            需要加密的字符串
-	 * @return
+	 * @return string
 	 */
 	public static String toMD5(String plainText) {
 		StringBuffer rlt = new StringBuffer();
@@ -56,10 +56,11 @@ public class MD5 {
 	}
 
 	/**
-	 * @Description 字符串加密为MD5 中文加密一致通用,必须转码处理： plainText.getBytes("UTF-8")
+	 * 字符串加密为MD5 中文加密一致通用,必须转码处理： plainText.getBytes("UTF-8")
 	 * @param plainText
 	 *            需要加密的字符串
-	 * @return
+	 * @param encoding encoding
+	 * @return string
 	 */
 	public static String toMD5(String plainText, String encoding) {
 		StringBuffer rlt = new StringBuffer();
@@ -71,15 +72,12 @@ public class MD5 {
 		}
 		return rlt.toString();
 	}
+
 	/**
 	 * MD5 参数签名生成算法
-	 * 
-	 * @param HashMap<String,String>
-	 *            params 请求参数集，所有参数必须已转换为字符串类型
-	 * @param String
-	 *            secret 签名密钥
+	 * @param params 请求参数集，所有参数必须已转换为字符串类型
+	 * @param secret secret 签名密钥
 	 * @return 签名
-	 * @throws IOException
 	 */
 	public static String getSignature(HashMap<String, String> params, String secret) {
 		Map<String, String> sortedParams = new TreeMap<String, String>(params);
@@ -93,13 +91,9 @@ public class MD5 {
 
 	/**
 	 * MD5 参数签名生成算法
-	 * 
-	 * @param String
-	 *            sigstr 签名字符串
-	 * @param String
-	 *            secret 签名密钥
+	 * @param sigstr 签名字符串
+	 * @param secret 签名密钥
 	 * @return 签名
-	 * @throws IOException
 	 */
 	public static String getSignature(String sigstr, String secret) {
 		StringBuilder basestring = new StringBuilder(sigstr);

@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
  * </p>
  * 
  * @author hubin
- * @Date 2014-5-8
+ * @since  2014-5-8
  */
 public class IpUtils {
 
@@ -87,8 +87,8 @@ public class IpUtils {
 	 *  192.168.1.130, 192.168.1.100 用户真实IP为： 192.168.1.110
 	 *  </p>
 	 *  
-	 * @param request
-	 * @return
+	 * @param request 请求
+	 * @return ip地址
 	 */
 	public static String getIpAddr(HttpServletRequest request) {
 		String ip = request.getHeader("x-forwarded-for");

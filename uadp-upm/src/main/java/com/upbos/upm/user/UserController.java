@@ -30,7 +30,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
  * <p>Description: 用户管理控制层</p>
  * <p>Company： upbos.com</p>
  * @author wangjz
- * @date 2016年11月27日 下午5:14:09
+ * @since 2016年11月27日 下午5:14:09
  * @version v2.5.0
  */
 @RestController

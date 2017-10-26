@@ -26,7 +26,7 @@ import com.upbos.util.exception.AESException;
  * </p>
  * 
  * @author hubin
- * @Date 2015-01-09
+ * @since  2015-01-09
  */
 public class SHA1 {
 
@@ -45,7 +45,7 @@ public class SHA1 {
 	 * 				密文
 	 * @return 安全签名
 	 * 
-	 * @throws AESException {@link AESException}
+	 * @throws AESException AESException {@link AESException}
 	 */
 	public static String getSHA1(String token, String timestamp, String nonce, String encrypt) throws AESException
 			  {

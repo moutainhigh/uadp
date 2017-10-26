@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * </p>
  * 
  * @author hubin
- * @Date 2015-01-09
+ * @since  2015-01-09
  */
 public class ByteGroup {
 

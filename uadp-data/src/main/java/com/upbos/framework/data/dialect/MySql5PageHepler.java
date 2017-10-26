@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 public class MySql5PageHepler {
 	/**
 	 * 得到查询总数的sql
+	 * @param querySelect 查询sql
+	 * @return string
 	 */
 	public static String getCountString(String querySelect) {
 
@@ -32,7 +34,7 @@ public class MySql5PageHepler {
 
 	/**
 	 * 得到最后一个Order By的插入点位置
-	 * 
+	 * @param querySelect 查询sql
 	 * @return 返回最后一个Order By插入点的位置
 	 */
 	private static int getLastOrderInsertPoint(String querySelect) {
@@ -45,13 +47,12 @@ public class MySql5PageHepler {
 		return orderIndex;
 	}
 
+
 	/**
 	 * 得到分页的SQL
-	 * 
-	 * @param offset
-	 *            偏移量
-	 * @param limit
-	 *            位置
+	 * @param querySelect 查询sql
+	 * @param offset 偏移量
+	 * @param limit 位置
 	 * @return 分页SQL
 	 */
 	public static String getLimitString(String querySelect, int offset,
@@ -65,9 +66,7 @@ public class MySql5PageHepler {
 
 	/**
 	 * 将SQL语句变成一条语句，并且每个单词的间隔都是1个空格
-	 * 
-	 * @param sql
-	 *            SQL语句
+	 * @param sql SQL语句
 	 * @return 如果sql是NULL返回空，否则返回转化后的SQL
 	 */
 	private static String getLineSql(String sql) {
@@ -76,6 +75,8 @@ public class MySql5PageHepler {
 
 	/**
 	 * 得到SQL第一个正确的FROM的的插入点
+	 * @param querySelect 查询sql
+	 * @return int
 	 */
 	private static int getAfterFormInsertPoint(String querySelect) {
 		String regex = "\\s+FROM\\s+";
@@ -93,9 +94,7 @@ public class MySql5PageHepler {
 
 	/**
 	 * 判断括号"()"是否匹配,并不会判断排列顺序是否正确
-	 * 
-	 * @param text
-	 *            要判断的文本
+	 * @param text 要判断的文本
 	 * @return 如果匹配返回TRUE,否则返回FALSE
 	 */
 	private static boolean isBracketCanPartnership(String text) {
@@ -108,11 +107,9 @@ public class MySql5PageHepler {
 
 	/**
 	 * 得到一个字符在另一个字符串中出现的次数
-	 * 
-	 * @param text
-	 *            文本
-	 * @param ch
-	 *            字符
+	 * @param text 文本
+	 * @param ch 字符
+	 * @return 字符出现的次数
 	 */
 	private static int getIndexOfCount(String text, char ch) {
 		int count = 0;

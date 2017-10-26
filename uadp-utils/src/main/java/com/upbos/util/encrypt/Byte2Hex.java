@@ -23,7 +23,7 @@ import java.util.Formatter;
  * </p>
  * 
  * @author hubin
- * @Date 2016-01-20
+ * @since  2016-01-20
  */
 public class Byte2Hex {
 
@@ -33,7 +33,7 @@ public class Byte2Hex {
 	 * 
 	 * @param b
 	 * 			字节
-	 * @return
+	 * @return s
 	 */
 	public static String byte2Hex( byte b ) {
 		String hex = Integer.toHexString(b);
@@ -53,7 +53,7 @@ public class Byte2Hex {
 	 * 
 	 * @param bytes
 	 * 			字节数组
-	 * @return
+	 * @return s
 	 */
 	public static String byte2Hex( byte[] bytes ) {
 		Formatter formatter = new Formatter();

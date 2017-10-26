@@ -27,7 +27,7 @@ import com.upbos.util.base64.UrlBase64;
  * </p>
  * 
  * @author hubin
- * @Date 2014-6-17
+ * @since 2014-6-17
  */
 public class Base64Utils {
 
@@ -37,9 +37,9 @@ public class Base64Utils {
 	 * BASE64字符串解码为二进制数据
 	 * </p>
 	 * 
-	 * @param base64
-	 * @return
-	 * @throws Exception
+	 * @param base64 base64
+	 * @return byte[]
+	 * @throws Exception 异常
 	 */
 	public static byte[] decode(String base64) throws Exception {
 		return Base64.decode(base64.getBytes());
@@ -50,9 +50,9 @@ public class Base64Utils {
 	 * 二进制数据编码为BASE64字符串
 	 * </p>
 	 * 
-	 * @param bytes
-	 * @return
-	 * @throws Exception
+	 * @param bytes bytes
+	 * @return string
+	 * @throws Exception 异常
 	 */
 	public static String encode(byte[] bytes) throws Exception {
 		return new String(Base64.encode(bytes));
@@ -61,9 +61,9 @@ public class Base64Utils {
 	/**
 	 * BASE64 encrypt
 	 * 
-	 * @param key
-	 * @return
-	 * @throws Exception
+	 * @param key byte[]
+	 * @return string
+	 * @throws Exception 异常
 	 */
 	public static String encryptBASE64(byte[] key) throws Exception {
 		byte[] b = UrlBase64.encode(key);
@@ -73,9 +73,9 @@ public class Base64Utils {
 	/**
 	 * BASE64 decrypt
 	 * 
-	 * @param key
-	 * @return
-	 * @throws Exception
+	 * @param key string
+	 * @return byte[]
+	 * @throws Exception 异常
 	 */
 	public static byte[] decryptBASE64(String key) throws Exception {
 		return UrlBase64.decode(key.getBytes(encoding));

@@ -46,7 +46,7 @@ public class Base64 {
 
 	/**
 	 * encode the input data producing a base 64 encoded byte array.
-	 *
+	 * @param data encoding data
 	 * @return a byte array containing the base 64 encoded data.
 	 */
 	public static byte[] encode(byte[] data) {
@@ -55,8 +55,10 @@ public class Base64 {
 
 	/**
 	 * Encode the byte data to base 64 writing it to the given output stream.
-	 *
+	 * @param data byte[]
+	 * @param out outputstream
 	 * @return the number of bytes produced.
+	 * @throws IOException 异常
 	 */
 	public static int encode(byte[] data, OutputStream out) throws IOException {
 		return encoder.encode(data, 0, data.length, out);
@@ -64,7 +66,9 @@ public class Base64 {
 
 	/**
 	 * encode the input data producing a base 64 encoded byte array.
-	 *
+	 * @param data encoding data
+	 * @param off offset
+	 * @param length data length
 	 * @return a byte array containing the base 64 encoded data.
 	 */
 	public static byte[] encode(byte[] data, int off, int length) {
@@ -82,17 +86,20 @@ public class Base64 {
 
 	/**
 	 * Encode the byte data to base 64 writing it to the given output stream.
-	 *
+	 * @param data encoding data
+	 * @param off offset
+	 * @param length data length
+	 * @param out out
 	 * @return the number of bytes produced.
+	 * @throws IOException 异常
 	 */
 	public static int encode(byte[] data, int off, int length, OutputStream out) throws IOException {
 		return encoder.encode(data, off, length, out);
 	}
 
 	/**
-	 * decode the base 64 encoded input data. It is assumed the input data is
-	 * valid.
-	 *
+	 * decode the base 64 encoded input data. It is assumed the input data is valid.
+	 * @param data data
 	 * @return a byte array representing the decoded data.
 	 */
 	public static byte[] decode(byte[] data) {
@@ -110,7 +117,7 @@ public class Base64 {
 
 	/**
 	 * decode the base 64 encoded String data - whitespace will be ignored.
-	 *
+	 * @param data decode data
 	 * @return a byte array representing the decoded data.
 	 */
 	public static byte[] decode(String data) {
@@ -129,8 +136,10 @@ public class Base64 {
 	/**
 	 * decode the base 64 encoded String data writing it to the given output
 	 * stream, whitespace characters will be ignored.
-	 *
+	 * @param data decode data
+	 * @param out out
 	 * @return the number of bytes produced.
+	 * @throws IOException 异常
 	 */
 	public static int decode(String data, OutputStream out) throws IOException {
 		return encoder.decode(data, out);

@@ -9,9 +9,9 @@ import java.lang.reflect.Field;
 public class ReflectUtils {
 	/**
 	 * 获取obj对象fieldName的Field
-	 * @param obj
-	 * @param fieldName
-	 * @return
+	 * @param obj obj
+	 * @param fieldName fieldName
+	 * @return field
 	 */
 	public static Field getFieldByFieldName(Object obj, String fieldName) {
 		for (Class<?> superClass = obj.getClass(); superClass != Object.class; superClass = superClass
@@ -26,13 +26,13 @@ public class ReflectUtils {
 
 	/**
 	 * 获取obj对象fieldName的属性值
-	 * @param obj
-	 * @param fieldName
-	 * @return
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
+	 * @param obj obj
+	 * @param fieldName fieldName
+	 * @return object
+	 * @throws SecurityException exception
+	 * @throws NoSuchFieldException exception
+	 * @throws IllegalArgumentException exception
+	 * @throws IllegalAccessException exception
 	 */
 	public static Object getValueByFieldName(Object obj, String fieldName)
 			throws SecurityException, NoSuchFieldException,
@@ -53,13 +53,13 @@ public class ReflectUtils {
 
 	/**
 	 * 设置obj对象fieldName的属性值
-	 * @param obj
-	 * @param fieldName
-	 * @param value
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
+	 * @param obj obj
+	 * @param fieldName fieldName
+	 * @param value value
+	 * @throws SecurityException exception
+	 * @throws NoSuchFieldException exception
+	 * @throws IllegalArgumentException exception
+	 * @throws IllegalAccessException exception
 	 */
 	public static void setValueByFieldName(Object obj, String fieldName,
 			Object value) throws SecurityException, NoSuchFieldException,
