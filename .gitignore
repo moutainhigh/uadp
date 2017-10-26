@@ -1,40 +1,11 @@
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-.idea
-
-*.iml
-
-/target/
+# for eclipse
 /.settings/
-/.classpath
 /.project
-uadp-utils/target
-uadp-upm/target
-uadp-srv/target
-uadp-redis/target
-uadp-lcache/target
-uadp-framework/target
-uadp-data/target
-uadp-activemq/target
-uadp-session/target
-/_config.yml
+
+# for idea
+*.iml
+/.idea
+*/target
+.DS_Store
+.gitattributes
+target
